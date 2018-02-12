@@ -1,38 +1,39 @@
 package com.example.adamo.cookster;
 
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Loader;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
+public class ProductsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-public class ProductsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private LoaderManager.LoaderCallbacks<JSONObject> mLoaderCallbacks = new LoaderManager.LoaderCallbacks<JSONObject>() {
+        @Override
+        public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
+            return new BaseLoader(getApplicationContext(), "api/products/");
+        }
 
+        @Override
+        public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
+            readStream(data);
+            progress.dismiss();
+        }
+
+        @Override
+        public void onLoaderReset(android.support.v4.content.Loader<JSONObject> loader) {
+            progress.dismiss();
+        }
+    };
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,35 +42,20 @@ public class ProductsActivity extends BaseActivity implements NavigationView.OnN
         getSupportLoaderManager().initLoader(0, null, mLoaderCallbacks).forceLoad();
 
 
-
     }
-
 
     private void readStream(JSONObject obj) {
 
         try {
             JSONArray arr = obj.getJSONArray("objects");
+            Log.d("xD", arr.toString());
             LinearLayout linear = (LinearLayout) this.findViewById(R.id.linear_products);
             for (int i = 0; i < arr.length(); i++) {
-                linear.addView(new ProductView(this, arr.getJSONObject(i).getString("name")));
+                linear.addView(new ProductView(this, arr.getJSONObject(i).getString("name"), arr.getJSONObject(i).getString("av")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
-    private LoaderManager.LoaderCallbacks<JSONObject> mLoaderCallbacks = new LoaderManager.LoaderCallbacks<JSONObject>() {
-        @Override
-        public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
-            return new ProductsLoader(getApplicationContext(),"api/products/");
-        }
-        @Override
-        public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
-            progress.dismiss();
-        }
-        @Override
-        public void onLoaderReset(android.support.v4.content.Loader<JSONObject> loader) {
-            progress.dismiss();
-        }
-    };
 }

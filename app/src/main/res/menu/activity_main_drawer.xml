@@ -5,33 +5,30 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/orders"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            android:title="Moje zamówienia" />
+        <item
+            android:id="@+id/dishes"
+            android:icon="@drawable/ic_folder_black_24dp"
+            android:title="Dania" />
+        <item
+            android:id="@+id/products"
+            android:icon="@drawable/ic_free_breakfast_black_24dp"
             android:title="Produkty" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Pracownicy" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Administracja">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/emloyees"
+                android:icon="@drawable/ic_group_black_24dp"
+                android:title="Pracownicy" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_folder_black_24dp"
+                android:title="Ustawienia konta" />
         </menu>
     </item>
 

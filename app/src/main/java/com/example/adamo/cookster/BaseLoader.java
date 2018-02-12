@@ -1,16 +1,9 @@
 package com.example.adamo.cookster;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -19,17 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
-/**
- * Created by adamo on 06.02.2018.
- */
-
-public class ProductsLoader extends AsyncTaskLoader<JSONObject> {
+public class BaseLoader extends AsyncTaskLoader<JSONObject> {
     String dir = "";
-    public ProductsLoader(Context context, String dir) {
+
+    BaseLoader(Context context, String dir) {
         super(context);
         this.dir = dir;
     }
@@ -44,6 +32,7 @@ public class ProductsLoader extends AsyncTaskLoader<JSONObject> {
         try {
             URL url = new URL(getContext().getResources().getString(R.string.app_url) + this.dir);
             client = (HttpURLConnection) url.openConnection();
+
             in = new BufferedInputStream(client.getInputStream());
             StringBuilder response = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(in));
@@ -51,13 +40,9 @@ public class ProductsLoader extends AsyncTaskLoader<JSONObject> {
             while ((line = reader.readLine()) != null) {
                 response.append(line);
             }
-            Log.d("XDDD",response.toString());
+
             obj = new JSONObject(response.toString());
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

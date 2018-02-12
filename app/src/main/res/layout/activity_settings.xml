@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.example.adamo.cookster.SettingsActivity">
+
+
+        <TableLayout
+            android:id="@+id/grid_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:orientation="vertical"
+
+            android:stretchColumns="0,1">
+
+            <TableRow style="@style/Settings_element">
+
+                <TextView android:text="Adres publiczny serwisu"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="none"
+                    android:maxLines="20"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text="@string/app_url" />
+            </TableRow>
+
+            <TableRow style="@style/Settings_element">
+
+                <TextView android:text="ID zalogowanego użytkownika"
+
+                    />
+
+                <TextView
+                    android:id="@+id/user_id"
+                    android:text="ID" />
+            </TableRow>
+
+            <TableRow style="@style/Settings_element">
+
+                <TextView android:text="Dane użytkownika"
+
+                    />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:text=">user" />
+            </TableRow>
+
+            <TableRow style="@style/Settings_element">
+
+                <TextView android:text="Wersja systemu"
+
+                    />
+
+                <TextView
+                    android:id="@+id/user_system"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="none"
+                    android:maxLines="20"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text=">26" />
+            </TableRow>
+
+            <TableRow style="@style/Settings_element">
+
+                <TextView android:text="Numer telefonu"
+
+                    />
+
+                <Button
+                    android:id="@+id/user_phone"
+                    style="@android:style/Widget.DeviceDefault.Light.Button"
+                    android:layout_width="match_parent"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:drawableRight="@drawable/ic_edit"
+                    android:text="Nie uzupełniony" />
+            </TableRow>
+
+            <TableRow style="@style/Settings_element">
+
+                <TextView android:text="Hasło"
+
+                    />
+
+                <Button
+                    style="@android:style/Widget.DeviceDefault.Light.Button"
+                    android:layout_width="match_parent"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:drawableRight="@drawable/ic_edit"
+                    android:text="Zmień" />
+            </TableRow>
+        </TableLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
