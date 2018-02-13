@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoaderManager.LoaderCallbacks<JSONObject> mLoaderCallbacks = new LoaderManager.LoaderCallbacks<JSONObject>() {
         @Override
         public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
-            progress = ProgressDialog.show(context, "Loading", "Pobieram dane z serwera...");
+            progress = ProgressDialog.show(context, "Proszę czekać", "Pobieram dane z serwera...");
             return new LoginLoader(getApplicationContext(), "mobileapi/?login=" + login + "&password=" + password);
         }
 
@@ -56,19 +56,14 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             showLoginPanel();
         }
-
-
         context = this;
-
     }
 
     private void readStream(JSONObject obj) {
-        TextView tv = (TextView) findViewById(R.id.loginerror);
 
         if (obj == null) {
-            if (tv.getVisibility() == View.INVISIBLE) tv.setVisibility(View.VISIBLE);
+            showError();
         } else {
-            tv.setVisibility(View.INVISIBLE);
             try {
                 SharedPreferences.Editor editor = getSharedPreferences("login", 0).edit();
                 editor.putString("name", obj.getString("name") + " " + obj.getString("surname"));
@@ -100,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginPanel() {
         ((LinearLayout) findViewById(R.id.login_linear_logged_container)).removeAllViews();
-        ((LinearLayout) findViewById(R.id.login_linear)).setVisibility(View.VISIBLE);
         ((LinearLayout) findViewById(R.id.login_linear)).setVisibility(View.VISIBLE);
         findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
 
@@ -140,10 +134,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void makeConnection() {
-        if (getSupportLoaderManager().getLoader(0) != null)
-            getSupportLoaderManager().restartLoader(0, null, mLoaderCallbacks).forceLoad();
-        else getSupportLoaderManager().initLoader(0, null, mLoaderCallbacks).forceLoad();
-
-
+        LoaderManager loaderManager = getSupportLoaderManager();
+        if (loaderManager.getLoader(0) != null)
+            loaderManager.restartLoader(0, null, mLoaderCallbacks).forceLoad();
+        else loaderManager.initLoader(0, null, mLoaderCallbacks).forceLoad();
     }
+
+    private void showError() {
+        TextView tv = (TextView) findViewById(R.id.loginerror);
+        if (tv.getVisibility() == View.INVISIBLE) tv.setVisibility(TextView.VISIBLE);
+    }
+
 }

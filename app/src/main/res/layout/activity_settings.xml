@@ -18,13 +18,10 @@
 
 
         <TableLayout
-            android:id="@+id/grid_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
-            android:orientation="vertical"
-
-            android:stretchColumns="0,1">
+            android:orientation="vertical"           >
 
             <TableRow style="@style/Settings_element">
 
@@ -35,16 +32,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="none"
-                    android:maxLines="20"
-                    android:scrollHorizontally="false"
-                    android:singleLine="false"
+                    android:layout_marginRight="15dp"
+                    android:scrollHorizontally="true"
+
                     android:text="@string/app_url" />
             </TableRow>
 
             <TableRow style="@style/Settings_element">
 
-                <TextView android:text="ID zalogowanego użytkownika"
+                <TextView android:text="ID użytkownika"
 
                     />
 
@@ -74,18 +70,14 @@
                     android:id="@+id/user_system"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="none"
-                    android:maxLines="20"
-                    android:scrollHorizontally="false"
-                    android:singleLine="false"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
                     android:text=">26" />
             </TableRow>
 
             <TableRow style="@style/Settings_element">
 
-                <TextView android:text="Numer telefonu"
-
-                    />
+                <TextView android:text="Numer telefonu"/>
 
                 <Button
                     android:id="@+id/user_phone"
@@ -99,9 +91,7 @@
 
             <TableRow style="@style/Settings_element">
 
-                <TextView android:text="Hasło"
-
-                    />
+                <TextView android:text="Hasło"/>
 
                 <Button
                     style="@android:style/Widget.DeviceDefault.Light.Button"

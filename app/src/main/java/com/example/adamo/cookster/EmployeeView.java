@@ -71,8 +71,6 @@ public class EmployeeView extends LinearLayout {
                     i.setImageResource(R.drawable.ic_arrow_drop);
                     ifNotSeen = true;
                 }
-
-
             }
         });
         this.addView(linker);

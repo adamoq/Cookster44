@@ -7,25 +7,66 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by adamo on 05.02.2018.
  */
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ProgressDialog progress;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        progress = ProgressDialog.show(this, "Loading", "Pobieram dane z serwera...");
-        super.onCreate(savedInstanceState);
 
+    private String dir;
+    private LoaderManager.LoaderCallbacks<JSONObject> mLoaderCallbacks = new LoaderManager.LoaderCallbacks<JSONObject>() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
+            return new BaseLoader(getApplicationContext(), dir);
+        }
+
+        @Override
+        public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
+            try {
+                renderData(data);
+            } catch (Exception e) {
+                messageBox("errorMadafaka!", e.getMessage());
+                e.printStackTrace();
+            }
+            progress.dismiss();
+        }
+
+        @Override
+        public void onLoaderReset(android.support.v4.content.Loader<JSONObject> loader) {
+            progress.dismiss();
+        }
+    };
+
+    static void messageBox(String method, String message) {
+        Log.d("EXCEPTION: " + method, message);
+
+        AlertDialog.Builder messageBox = new AlertDialog.Builder(this);
+        messageBox.setTitle(method);
+        messageBox.setMessage(message);
+        messageBox.setCancelable(false);
+        messageBox.setNeutralButton("OK", null);
+        messageBox.show();
+    }
+
+    protected void onCreate(Bundle savedInstanceState, String dir) {
+        progress = ProgressDialog.show(this, "Proszę czekać", "Pobieram dane z serwera...");
+        super.onCreate(savedInstanceState);
+        this.dir = dir;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         SharedPreferences settings = getSharedPreferences("login", 0);
@@ -35,8 +76,10 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             ((TextView) navigationView.getHeaderView(0).findViewById(R.id.username)).setText(settings.getString("name", "null"));
             ((TextView) navigationView.getHeaderView(0).findViewById(R.id.position)).setText(settings.getString("position", "null"));
         } catch (Exception e) {
+            messageBox("errorMadafaka!", e.getMessage());
             e.printStackTrace();
         }
+        getSupportLoaderManager().initLoader(0, null, mLoaderCallbacks).forceLoad();
     }
 
     @Override
@@ -48,7 +91,6 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             super.onBackPressed();
         }
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -78,4 +120,5 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
         return true;
     }
 
+    abstract protected void renderData(JSONObject data) throws JSONException;
 }

@@ -2,27 +2,28 @@ package com.example.adamo.cookster;
 
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.AsyncTaskLoader;
 
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class BaseLoader extends AsyncTaskLoader<JSONObject> {
-    String dir = "";
+    private String dir = "";
 
     BaseLoader(Context context, String dir) {
         super(context);
         this.dir = dir;
     }
 
-    @Override
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public JSONObject loadInBackground() {
 
         InputStream in = null;
@@ -30,36 +31,23 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
         BufferedReader reader = null;
         JSONObject obj = null;
         try {
-            URL url = new URL(getContext().getResources().getString(R.string.app_url) + this.dir);
-            client = (HttpURLConnection) url.openConnection();
-
-            in = new BufferedInputStream(client.getInputStream());
+            client = (HttpURLConnection) new URL(getContext().getResources().getString(R.string.app_url) + this.dir).openConnection();
             StringBuilder response = new StringBuilder();
-            reader = new BufferedReader(new InputStreamReader(in));
+            reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(client.getInputStream())));
             String line = "";
             while ((line = reader.readLine()) != null) {
                 response.append(line);
             }
-
             obj = new JSONObject(response.toString());
-
+            if (reader != null) reader.close();
         } catch (Exception e) {
             e.printStackTrace();
+            BaseActivity.messageBox("errorMadafaka!", e.getMessage());
         } finally {
             client.disconnect();
+        }
 
-        }
-        if (reader != null) try {
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return obj;
-    }
-
-    @Override
-    public void deliverResult(JSONObject data) {
-        super.deliverResult(data);
     }
 
 }
