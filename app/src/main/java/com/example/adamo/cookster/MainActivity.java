@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 @SuppressLint("MissingSuperCall")
@@ -17,14 +18,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_main);
         //super.onCreate(savedInstanceState);
         super.onCreate(savedInstanceState, "api/resproducts/");
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         progress.dismiss();
 
     }
 
     @Override
-    protected void renderData(JSONObject data) {
-
+    protected void renderData(JSONObject data) throws JSONException {
+        super.renderData(data);
     }
 }

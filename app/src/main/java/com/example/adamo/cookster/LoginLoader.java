@@ -5,20 +5,15 @@ import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-
-/**
- * Created by adamo on 06.02.2018.
- */
 
 public class LoginLoader extends AsyncTaskLoader<JSONObject> {
     String dir = "";
@@ -30,8 +25,6 @@ public class LoginLoader extends AsyncTaskLoader<JSONObject> {
 
     @Override
     public JSONObject loadInBackground() {
-
-
         InputStream in = null;
         HttpURLConnection client = null;
         BufferedReader reader = null;
@@ -52,22 +45,22 @@ public class LoginLoader extends AsyncTaskLoader<JSONObject> {
                 obj.put("id", "" + (new JSONArray(response.toString()).getJSONObject(0)).getInt("pk"));
 
             }
+            if (reader != null) reader.close();
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+            obj = new JSONObject();
+            try {
+                obj.put("error", e.getMessage());
+                client.disconnect();
+                return obj;
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
         } finally {
             client.disconnect();
+            return obj;
+        }
 
-        }
-        if (reader != null) try {
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return obj;
     }
 }

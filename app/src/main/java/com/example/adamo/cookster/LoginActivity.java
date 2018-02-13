@@ -8,9 +8,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,7 +37,12 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
-            readStream(data);
+            try {
+                readStream(data);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                messageBox(getBaseContext(), "Błąd", e.getMessage());
+            }
             progress.dismiss();
         }
 
@@ -59,43 +65,39 @@ public class LoginActivity extends AppCompatActivity {
         context = this;
     }
 
-    private void readStream(JSONObject obj) {
-
-        if (obj == null) {
-            showError();
-        } else {
-            try {
-                SharedPreferences.Editor editor = getSharedPreferences("login", 0).edit();
-                editor.putString("name", obj.getString("name") + " " + obj.getString("surname"));
-                editor.putString("login", obj.getString("login"));
-                editor.putString("id", obj.getString("id"));
-                editor.putString("password", obj.getString("password"));
-                if (obj.has("phonenumber"))
-                    editor.putString("phonenumber", obj.getString("phonenumber"));
-                switch (obj.getString("position")) {
-                    case "0":
-                        editor.putString("position", "Kelner");
-                        break;
-                    case "1":
-                        editor.putString("position", "Kucharz");
-                        break;
-                    case "2":
-                        editor.putString("position", "Dostawca");
-                        break;
-                }
-                editor.commit();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            } catch (JSONException e) {
-                e.printStackTrace();
+    private void readStream(JSONObject obj) throws JSONException {
+        if (obj.has("error")) messageBox(this, "Błąd", obj.getString("error"));
+        if (obj == null) showError();
+        else {
+            SharedPreferences.Editor editor = getSharedPreferences("login", 0).edit();
+            editor.putString("name", obj.getString("name") + " " + obj.getString("surname"));
+            editor.putString("login", obj.getString("login"));
+            editor.putString("id", obj.getString("id"));
+            editor.putString("password", obj.getString("password"));
+            if (obj.has("phonenumber"))
+                editor.putString("phonenumber", obj.getString("phonenumber"));
+            switch (obj.getString("position")) {
+                case "0":
+                    editor.putString("position", "Kelner");
+                    break;
+                case "1":
+                    editor.putString("position", "Kucharz");
+                    break;
+                case "2":
+                    editor.putString("position", "Dostawca");
+                    break;
             }
+            editor.commit();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
         }
 
     }
 
     private void showLoginPanel() {
         ((LinearLayout) findViewById(R.id.login_linear_logged_container)).removeAllViews();
-        ((LinearLayout) findViewById(R.id.login_linear)).setVisibility(View.VISIBLE);
+        findViewById(R.id.login_linear).setVisibility(View.VISIBLE);
         findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -123,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         ((LinearLayout) findViewById(R.id.login_linear_logged)).addView(tv);
-        ((Button) findViewById(R.id.change_account)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.change_account).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -141,8 +143,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showError() {
-        TextView tv = (TextView) findViewById(R.id.loginerror);
+        TextView tv = findViewById(R.id.loginerror);
         if (tv.getVisibility() == View.INVISIBLE) tv.setVisibility(TextView.VISIBLE);
     }
 
+    private void messageBox(Context context, String method, String message) {
+        Log.d("EXCEPTION: " + method, message);
+        AlertDialog.Builder messageBox = new AlertDialog.Builder(context);
+        messageBox.setTitle(method);
+        messageBox.setMessage(message);
+        messageBox.setCancelable(false);
+        messageBox.setNeutralButton("OK", null);
+        messageBox.show();
+    }
 }

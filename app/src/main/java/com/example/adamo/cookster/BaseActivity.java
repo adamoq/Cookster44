@@ -1,6 +1,7 @@
 package com.example.adamo.cookster;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -32,7 +33,7 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
-            return new BaseLoader(getApplicationContext(), dir);
+            return new BaseLoader(BaseActivity.this, dir);
         }
 
         @Override
@@ -40,7 +41,7 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             try {
                 renderData(data);
             } catch (Exception e) {
-                messageBox("errorMadafaka!", e.getMessage());
+                messageBox(getBaseContext(), "errorMadafaka!", e.getMessage());
                 e.printStackTrace();
             }
             progress.dismiss();
@@ -52,22 +53,11 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
         }
     };
 
-    static void messageBox(String method, String message) {
-        Log.d("EXCEPTION: " + method, message);
-
-        AlertDialog.Builder messageBox = new AlertDialog.Builder(this);
-        messageBox.setTitle(method);
-        messageBox.setMessage(message);
-        messageBox.setCancelable(false);
-        messageBox.setNeutralButton("OK", null);
-        messageBox.show();
-    }
-
     protected void onCreate(Bundle savedInstanceState, String dir) {
         progress = ProgressDialog.show(this, "Proszę czekać", "Pobieram dane z serwera...");
         super.onCreate(savedInstanceState);
         this.dir = dir;
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         SharedPreferences settings = getSharedPreferences("login", 0);
         try {
@@ -76,7 +66,7 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             ((TextView) navigationView.getHeaderView(0).findViewById(R.id.username)).setText(settings.getString("name", "null"));
             ((TextView) navigationView.getHeaderView(0).findViewById(R.id.position)).setText(settings.getString("position", "null"));
         } catch (Exception e) {
-            messageBox("errorMadafaka!", e.getMessage());
+            messageBox(getBaseContext(), "errorMadafaka!", e.getMessage());
             e.printStackTrace();
         }
         getSupportLoaderManager().initLoader(0, null, mLoaderCallbacks).forceLoad();
@@ -84,7 +74,7 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -108,17 +98,30 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             startActivity(intent);
 
         }
-        ; /*else if (id == R.id.nav_manage) {
+        /*else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         }*/
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    abstract protected void renderData(JSONObject data) throws JSONException;
+    protected void renderData(JSONObject data) throws JSONException {
+        if (data.has("error")) messageBox(this, "Błąd", data.getString("error"));
+    }
+
+    private void messageBox(Context context, String method, String message) {
+        Log.d("EXCEPTION: " + method, message);
+
+        AlertDialog.Builder messageBox = new AlertDialog.Builder(context);
+        messageBox.setTitle(method);
+        messageBox.setMessage(message);
+        messageBox.setCancelable(false);
+        messageBox.setNeutralButton("OK", null);
+        messageBox.show();
+    }
 }
