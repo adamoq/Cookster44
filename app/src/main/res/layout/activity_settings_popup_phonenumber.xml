@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <TextView
-        android:text="Edytuj swój numer telefonu"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:scaleType="center"
-         />
+        android:text="Edytuj swój numer telefonu"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu" />
+
     <EditText
-        android:id="@+id/xddd"
-        android:inputType="phone"
+        android:id="@+id/popup_phonenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="XXX - XXX - XXX" />
+        android:layout_marginTop="16dp"
+        android:hint="123..."
+        android:inputType="phone" />
 
 </LinearLayout>

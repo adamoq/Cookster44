@@ -41,7 +41,7 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             try {
                 renderData(data);
             } catch (Exception e) {
-                messageBox(getBaseContext(), "errorMadafaka!", e.getMessage());
+                messageBox(BaseActivity.this, "errorMadafaka!", e.getMessage());
                 e.printStackTrace();
             }
             progress.dismiss();
@@ -70,6 +70,7 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             e.printStackTrace();
         }
         getSupportLoaderManager().initLoader(0, null, mLoaderCallbacks).forceLoad();
+
     }
 
     @Override
@@ -87,24 +88,29 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.products) {
+        if (id == R.id.nav_products) {
             Intent intent = new Intent(this, ProductsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.emloyees) {
+        } else if (id == R.id.nav_emloyees) {
             Intent intent = new Intent(this, EmployeesActivity.class);
             startActivity(intent);
-        } else if (id == R.id.settings) {
+        } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-
+        } else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            getSharedPreferences("login", 0).edit().remove("name").remove("login").remove("password").commit();
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_dishes) {
+            Intent intent = new Intent(this, DishActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_orders) {
+            Intent intent = new Intent(this, OrdersCookActivity.class);
+            startActivity(intent);
         }
-        /*else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -114,7 +120,7 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
         if (data.has("error")) messageBox(this, "Błąd", data.getString("error"));
     }
 
-    private void messageBox(Context context, String method, String message) {
+    protected void messageBox(Context context, String method, String message) {
         Log.d("EXCEPTION: " + method, message);
 
         AlertDialog.Builder messageBox = new AlertDialog.Builder(context);

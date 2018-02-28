@@ -22,7 +22,7 @@ public class EmployeeExpendView extends LinearLayout {
         final String phone = number;
         TextView tv = new TextView(context);
         tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_phone_iphone_black_24dp, 0, 0, 0);
-        if (number != null) {
+        if (!number.isEmpty()) {
             tv.setText(number);
             this.addView(tv);
             LinearLayout linearLayout = new LinearLayout(context);
@@ -36,7 +36,7 @@ public class EmployeeExpendView extends LinearLayout {
             button.setLayoutParams(params);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View arg0) {
-                    ((EmployeesActivity) context).startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null)));
+                    context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null)));
                 }
             });
             linearLayout.addView(button);
@@ -46,7 +46,7 @@ public class EmployeeExpendView extends LinearLayout {
             button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_chat_black_24dp, 0, 0, 0);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View arg0) {
-                    ((EmployeesActivity) context).startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", phone, null)));
+                    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", phone, null)));
                 }
             });
             linearLayout.addView(button);

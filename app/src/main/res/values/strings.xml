@@ -3,5 +3,9 @@
     <string name="app_url">http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/</string>
 
     <string name="title_activity_products">ProductsActivity</string>
-
+    <string-array name="orders_av">
+        <item>Zlecone</item>
+        <item>W realizacji</item>
+        <item>Dostarczone</item>
+    </string-array>
 </resources>

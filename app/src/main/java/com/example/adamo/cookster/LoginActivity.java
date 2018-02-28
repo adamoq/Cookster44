@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
             progress = ProgressDialog.show(context, "Proszę czekać", "Pobieram dane z serwera...");
+
             return new LoginLoader(getApplicationContext(), "mobileapi/?login=" + login + "&password=" + password);
         }
 
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 readStream(data);
             } catch (JSONException e) {
                 e.printStackTrace();
-                messageBox(getBaseContext(), "Błąd", e.getMessage());
+                messageBox(LoginActivity.this, "Błąd", e.getMessage());
             }
             progress.dismiss();
         }
@@ -70,10 +71,10 @@ public class LoginActivity extends AppCompatActivity {
         if (obj == null) showError();
         else {
             SharedPreferences.Editor editor = getSharedPreferences("login", 0).edit();
-            editor.putString("name", obj.getString("name") + " " + obj.getString("surname"));
-            editor.putString("login", obj.getString("login"));
-            editor.putString("id", obj.getString("id"));
-            editor.putString("password", obj.getString("password"));
+            editor.putString("name", obj.getString("name") + " " + obj.getString("surname"))
+                    .putString("login", obj.getString("login"))
+                    .putString("id", obj.getString("id"))
+                    .putString("password", obj.getString("password"));
             if (obj.has("phonenumber"))
                 editor.putString("phonenumber", obj.getString("phonenumber"));
             switch (obj.getString("position")) {
@@ -136,10 +137,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void makeConnection() {
-        LoaderManager loaderManager = getSupportLoaderManager();
-        if (loaderManager.getLoader(0) != null)
-            loaderManager.restartLoader(0, null, mLoaderCallbacks).forceLoad();
-        else loaderManager.initLoader(0, null, mLoaderCallbacks).forceLoad();
+        if (login.length() < 3 || password.length() < 3) {
+            showError();
+        } else {
+            LoaderManager loaderManager = getSupportLoaderManager();
+            if (loaderManager.getLoader(0) != null)
+                loaderManager.restartLoader(0, null, mLoaderCallbacks).forceLoad();
+            else loaderManager.initLoader(0, null, mLoaderCallbacks).forceLoad();
+        }
     }
 
     private void showError() {

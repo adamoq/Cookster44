@@ -5,6 +5,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,8 +24,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState, "api/resproducts/");
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        TextView tv = findViewById(R.id.welcome_login);
+        tv.setText(tv.getText() + getSharedPreferences("login", 0).getString("login", null));
+        tv = findViewById(R.id.welcome_name);
+        tv.setText(tv.getText() + getSharedPreferences("login", 0).getString("name", null));
         progress.dismiss();
-
+        final DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
+        findViewById(R.id.open_drawer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
     }
 
     @Override

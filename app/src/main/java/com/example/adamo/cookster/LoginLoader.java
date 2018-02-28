@@ -40,7 +40,7 @@ public class LoginLoader extends AsyncTaskLoader<JSONObject> {
                 response.append(line);
             }
 
-            if (response.toString() != "false") {
+            if (response.toString() != "false" && response.toString() != "False") {
                 obj = new JSONArray(response.toString()).getJSONObject(0).getJSONObject("fields");
                 obj.put("id", "" + (new JSONArray(response.toString()).getJSONObject(0)).getInt("pk"));
 

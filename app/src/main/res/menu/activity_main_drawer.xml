@@ -5,13 +5,15 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_orders"
             android:icon="@drawable/ic_menu_orders"
             android:title="Moje zamówienia" />
         <item
+            android:id="@+id/nav_dishes"
             android:icon="@drawable/ic_menu_dishes"
             android:title="Dania" />
         <item
-            android:id="@+id/products"
+            android:id="@+id/nav_products"
             android:icon="@drawable/ic_menu_products"
             android:title="Produkty" />
 
@@ -20,13 +22,17 @@
     <item android:title="Administracja">
         <menu>
             <item
-                android:id="@+id/emloyees"
+                android:id="@+id/nav_emloyees"
                 android:icon="@drawable/ic_group_black_24dp"
                 android:title="Pracownicy" />
             <item
-                android:id="@+id/settings"
+                android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_settings"
                 android:title="Ustawienia konta" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_logout"
+                android:title="Wyloguj się" />
         </menu>
     </item>
 

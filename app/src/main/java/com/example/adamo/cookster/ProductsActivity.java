@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import org.json.JSONArray;
@@ -23,8 +22,7 @@ public class ProductsActivity extends BaseActivity {
 
     protected void renderData(JSONObject obj) throws JSONException {
         JSONArray arr = obj.getJSONArray("objects");
-        Log.d("XDD", arr.toString());
-        LinearLayout linear = (LinearLayout) this.findViewById(R.id.linear_products);
+        LinearLayout linear = this.findViewById(R.id.linear_products);
         for (int i = 0; i < arr.length(); i++) {
             linear.addView(new ProductView(this, arr.getJSONObject(i).getString("name"), arr.getJSONObject(i).getString("av")));
         }

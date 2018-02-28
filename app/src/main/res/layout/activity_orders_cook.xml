@@ -8,32 +8,45 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.adamo.cookster.ProductsActivity">
+        android:orientation="vertical"
+        tools:context="com.example.adamo.cookster.OrdersCookActivity">
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
         <LinearLayout
-            android:id="@+id/linear_products"
+            android:id="@+id/lidear_orders_cook_choose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_weight="2"
+                android:dropDownVerticalOffset="70dp" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOff="Wszystkie zamówienia"
+                android:textOn="Moje zamówienia" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lidear_orders_cook"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+            android:orientation="vertical">
 
         </LinearLayout>
-        </ScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+
+    </LinearLayout>
 
 
     <android.support.design.widget.NavigationView
