@@ -70,6 +70,7 @@ public class OrdersCookActivity extends BaseActivity {
                 order = new OrderCookModel(arr.getJSONObject(i).getInt("id"), arr.getJSONObject(i).getJSONObject("provider").getString("name") + " " + arr.getJSONObject(i).getJSONObject("provider").getString("surname"), arr.getJSONObject(i).getString("products"), arr.getJSONObject(i).getString("priority"), arr.getJSONObject(i).getString("created_at"), arr.getJSONObject(i).getString("state"), arr.getJSONObject(i).getString("comment"));
             linearLayout.addView(new OrderCookView(this, order, getSupportLoaderManager()));
         }
+
     }
 
     @Override

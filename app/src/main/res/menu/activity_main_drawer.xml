@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_menu_orders"
             android:title="Moje zamówienia" />
         <item
+            android:id="@+id/nav_orders_add"
+            android:icon="@drawable/ic_order_add"
+            android:title="Zleć zamówienie" />
+        <item
             android:id="@+id/nav_dishes"
             android:icon="@drawable/ic_menu_dishes"
             android:title="Dania" />

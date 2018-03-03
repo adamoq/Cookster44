@@ -27,7 +27,7 @@ public class OrderCookView extends LinearLayout {
             HashMap<String, String> map = new HashMap<>();
             if (order.getState().equals("0")) map.put("state", "1");
             if (order.getState().equals("1")) map.put("state", "2");
-            return new BaseLoader(getContext(), "api/cooktasks/" + order.getId() + "/", map);
+            return new BaseLoader(getContext(), "api/cooktasks/" + order.getId() + "/", map, "PUT");
         }
 
         @Override

@@ -21,7 +21,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         //super.onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState, "api/resproducts/");
+        super.onCreate(savedInstanceState, "api/products/");
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         TextView tv = findViewById(R.id.welcome_login);

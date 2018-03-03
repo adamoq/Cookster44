@@ -13,7 +13,7 @@ import android.widget.TextView;
  */
 
 public class ProductView extends LinearLayout {
-    public ProductView(Context context, String title, String av) {
+    public ProductView(Context context, String title, String av, String position) {
         super(context);
         this.setOrientation(LinearLayout.VERTICAL);
         LinearLayout linker = new LinearLayout(context);
@@ -45,35 +45,35 @@ public class ProductView extends LinearLayout {
         arrow.setImageResource(R.drawable.ic_arrow_drop);
         params = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1);
         arrow.setLayoutParams(params);
+        this.setBackground(getResources().getDrawable(R.drawable.borderd_bottom_element));
+
         linker.addView(arrow);
         params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 150);
         linker.setLayoutParams(params);
+        if (position == "Kucharz") {
+            final View content = this;
+            final int av2 = Integer.parseInt(av);
+            linker.setOnClickListener(new OnClickListener() {
+                private boolean ifNotSeen = true;
+                private ProductExpandView productExpandView;
 
-        this.setBackground(getResources().getDrawable(R.drawable.borderd_bottom_element));
-        final View content = this;
-        final int av2 = Integer.parseInt(av);
-        linker.setOnClickListener(new OnClickListener() {
-            private boolean ifNotSeen = true;
-            private ProductExpandView productExpandView;
-
-            @Override
-            public void onClick(View view) {
-                if (ifNotSeen) {
-                    ifNotSeen = false;
-                    productExpandView = new ProductExpandView(content.getContext(), av2);
-                    ((LinearLayout) content).addView(productExpandView);
-                    arrow.setImageResource(R.drawable.ic_arrow_drop_up);
-                    content.setBackgroundColor(Color.rgb(230, 230, 230));
-                } else {
-                    ifNotSeen = true;
-                    ((LinearLayout) content).removeView(productExpandView);
-                    arrow.setImageResource(R.drawable.ic_arrow_drop);
-                    content.setBackground(getResources().getDrawable(R.drawable.borderd_bottom_element));
+                @Override
+                public void onClick(View view) {
+                    if (ifNotSeen) {
+                        ifNotSeen = false;
+                        productExpandView = new ProductExpandView(content.getContext(), av2);
+                        ((LinearLayout) content).addView(productExpandView);
+                        arrow.setImageResource(R.drawable.ic_arrow_drop_up);
+                        content.setBackgroundColor(Color.rgb(230, 230, 230));
+                    } else {
+                        ifNotSeen = true;
+                        ((LinearLayout) content).removeView(productExpandView);
+                        arrow.setImageResource(R.drawable.ic_arrow_drop);
+                        content.setBackground(getResources().getDrawable(R.drawable.borderd_bottom_element));
+                    }
                 }
-            }
-        });
-
-        this.addView(linker);
-
+            });
+            this.addView(linker);
+        }
     }
 }

@@ -23,26 +23,27 @@ import java.util.Map;
 
 public class BaseLoader extends AsyncTaskLoader<JSONObject> {
     HashMap<String, String> args = null;
-    private String dir = "";
+    private String dir = "", method = "";
 
     BaseLoader(Context context, String dir) {
         super(context);
         this.dir = dir;
     }
 
-    BaseLoader(Context context, String dir, HashMap<String, String> args) {
+    BaseLoader(Context context, String dir, HashMap<String, String> args, String method) {
         super(context);
         this.dir = dir;
         this.args = args;
+        this.method = method;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public JSONObject loadInBackground() {
+        InputStream in = null;
+        HttpURLConnection client = null;
+        BufferedReader reader = null;
+        JSONObject obj = null;
         if (args == null) {
-            InputStream in = null;
-            HttpURLConnection client = null;
-            BufferedReader reader = null;
-            JSONObject obj = null;
             try {
                 client = (HttpURLConnection) new URL(getContext().getResources().getString(R.string.app_url) + this.dir).openConnection();
                 StringBuilder response = new StringBuilder();
@@ -70,29 +71,30 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
             return obj;
 
         } else {
-            InputStream in = null;
-            HttpURLConnection client = null;
-            BufferedReader reader = null;
-            JSONObject obj = null;
+
             try {
                 client = (HttpURLConnection) new URL(getContext().getResources().getString(R.string.app_url) + this.dir).openConnection();
-                client.setRequestMethod("PUT");
+                client.setRequestMethod(method);
                 client.setRequestProperty("Content-Type", "application/json; charset=utf8");
                 //convert parameters into JSON object
                 JSONObject jsonObject = new JSONObject();
                 Iterator iterator = args.entrySet().iterator();
                 while (iterator.hasNext()) {
                     Map.Entry mentry2 = (Map.Entry) iterator.next();
-                    jsonObject.put((String) mentry2.getKey(), mentry2.getValue());
+                    if (mentry2.getKey().equals("provider") || mentry2.getKey().equals("waiter"))
+                        jsonObject.put((String) mentry2.getKey(), "/api/resemployees/" + mentry2.getValue() + "/");
+                    else jsonObject.put((String) mentry2.getKey(), mentry2.getValue());
                 }
                 client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 client.setDoOutput(true);
                 client.setDoInput(true);
 
                 OutputStream os = client.getOutputStream();
+                Log.d("XDD", jsonObject.toString());
                 os.write(jsonObject.toString().getBytes());
                 os.close();
                 Log.d("xddd", "" + client.getResponseCode());
+                Log.d("xddd", "" + client.getResponseMessage());
                 if (client.getResponseCode() >= 200 && client.getResponseCode() < 300) {
                     StringBuilder response = new StringBuilder();
                     reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(client.getInputStream())));
