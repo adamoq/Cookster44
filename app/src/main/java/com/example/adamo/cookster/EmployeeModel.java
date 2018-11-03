@@ -4,11 +4,11 @@ package com.example.adamo.cookster;
  * Created by adamo on 01.03.2018.
  */
 
-class EmployeeModel {
+public class EmployeeModel {
     private String name;
     private int id;
 
-    protected EmployeeModel(String name, int id) {
+    public EmployeeModel(String name, int id) {
         this.name = name;
         this.id = id;
     }

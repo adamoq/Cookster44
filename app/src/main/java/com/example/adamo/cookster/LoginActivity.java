@@ -4,14 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -111,12 +110,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void hideLoginPanel(final SharedPreferences settings) {
-        TextView tv = new TextView(getApplicationContext());
-        tv.setText(settings.getString("name", "null"));
-        tv.setTextColor(Color.LTGRAY);
-        tv.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
-        tv.setTextSize(20);
-        tv.setOnClickListener(new View.OnClickListener() {
+        Button button = findViewById(R.id.log_as);
+        button.setText(button.getText() + settings.getString("name", "null"));
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -125,7 +121,6 @@ public class LoginActivity extends AppCompatActivity {
                 makeConnection();
             }
         });
-        ((LinearLayout) findViewById(R.id.login_linear_logged)).addView(tv);
         findViewById(R.id.change_account).setOnClickListener(new View.OnClickListener() {
 
             @Override

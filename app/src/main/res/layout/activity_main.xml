@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Witaj w aplikacji "
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+
             android:textSize="30dp" />
 
         <TextView
@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
+            android:fontFamily="@font/roboto_light"
             android:gravity="center"
             android:keepScreenOn="true"
             android:text="CookSter"
@@ -41,14 +42,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Zostałeś zalogowany jako"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/welcome_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+
             android:textSize="20dp" />
 
         <TextView
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:drawableBottom="@mipmap/ic_welcome_arrow"
             android:text="Menu znajduje się po lewej stronie"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+
             android:textSize="20dp" />
 
 
@@ -70,7 +71,12 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="@drawable/side_nav_bar_bottom"
         app:headerLayout="@layout/nav_header_main"
+        app:itemIconTint="@color/colorMenuIcon"
+        app:itemTextAppearance="@style/NavigationViewStyle"
+        app:itemTextColor="@color/colorMenuText"
         app:menu="@menu/activity_main_drawer" />
+
 
 </android.support.v4.widget.DrawerLayout>

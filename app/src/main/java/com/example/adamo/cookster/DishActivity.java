@@ -36,14 +36,16 @@ public class DishActivity extends BaseActivity {
         dishes = new ArrayList<>();
         LinearLayout linearLayout = findViewById(R.id.linear_dishes);
         for (int i = 0; i < arr.length(); i++) {
-            dishes.add(new DishModel(arr.getJSONObject(i).getString("name"), arr.getJSONObject(i).getString("id"), "Nazwa kategorii", arr.getJSONObject(i).getString("category"), "Produkty, produkty, produkty, produkty...", arr.getJSONObject(i).getString("av")));
+            dishes.add(new DishModel(arr.getJSONObject(i).getString("name"), arr.getJSONObject(i).getString("id"), arr.getJSONObject(i).getJSONObject("category").getString("name"), arr.getJSONObject(i).getString("category"), arr.getJSONObject(i).getJSONArray("products"), arr.getJSONObject(i).getString("av")));
             // linearLayout.addView(new DishView(this,new DishModel(arr.getJSONObject(i).getString("name"),arr.getJSONObject(i).getString("id"),"Nazwa kategorii",arr.getJSONObject(i).getString("category"),"Produkty, produkty, produkty, produkty...",arr.getJSONObject(i).getString("av"))));
         }
         dishes.sort(new Comparator<DishModel>() {
             @Override
             public int compare(DishModel dishModel, DishModel t1) {
-
-                return dishModel.getName().compareToIgnoreCase(t1.getName());
+                int compareResult = dishModel.getCategory().compareToIgnoreCase(t1.getCategory());
+                if (compareResult == 0)
+                    return dishModel.getName().compareToIgnoreCase(t1.getName());
+                else return compareResult;
             }
         });
         for (int i = 0; i < arr.length(); i++) {

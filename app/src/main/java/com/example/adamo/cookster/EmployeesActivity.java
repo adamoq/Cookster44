@@ -1,6 +1,5 @@
 package com.example.adamo.cookster;
 
-
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ public class EmployeesActivity extends BaseActivity {
 
     protected void renderData(JSONObject obj) throws JSONException {
         JSONArray arr = obj.getJSONArray("objects");
-        LinearLayout linear = (LinearLayout) this.findViewById(R.id.linear_products);
+        LinearLayout linear = this.findViewById(R.id.linear_products);
         for (int i = 0; i < arr.length(); i++) {
             linear.addView(new EmployeeView(this, arr.getJSONObject(i).getString("name") + " " + arr.getJSONObject(i).getString("surname"), arr.getJSONObject(i).getString("position"), arr.getJSONObject(i).getString("phonenumber")));
         }

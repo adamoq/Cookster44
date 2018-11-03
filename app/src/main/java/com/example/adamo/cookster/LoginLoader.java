@@ -32,6 +32,7 @@ public class LoginLoader extends AsyncTaskLoader<JSONObject> {
         try {
             URL url = new URL(getContext().getResources().getString(R.string.app_url) + this.dir);
             client = (HttpURLConnection) url.openConnection();
+            client.setConnectTimeout(300);
             in = new BufferedInputStream(client.getInputStream());
             StringBuilder response = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(in));

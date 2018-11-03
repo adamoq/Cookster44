@@ -25,8 +25,7 @@
             android:id="@+id/order_products"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+            android:layout_weight="6" />
 
 
         <ImageView

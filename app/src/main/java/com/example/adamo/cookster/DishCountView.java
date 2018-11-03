@@ -17,7 +17,7 @@ public class DishCountView extends LinearLayout {
 
     public DishCountView(Context context, String name, String id) {
         super(context);
-        this.url = "/api/cooktasks/" + id + "/";
+        this.url = "/api/resdishes/" + id + "/";
 
         this.setOrientation(LinearLayout.HORIZONTAL);
         editText = new EditText(context);
@@ -32,6 +32,10 @@ public class DishCountView extends LinearLayout {
 
     public String getUrl() {
         return url;
+    }
+
+    public int getCount() {
+        return Integer.parseInt((editText.getText().toString()));
     }
 
     public void progressCount() {

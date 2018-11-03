@@ -27,7 +27,7 @@
         <menu>
             <item
                 android:id="@+id/nav_emloyees"
-                android:icon="@drawable/ic_group_black_24dp"
+                android:icon="@drawable/ic_employees"
                 android:title="Pracownicy" />
             <item
                 android:id="@+id/nav_settings"

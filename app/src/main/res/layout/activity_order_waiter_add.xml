@@ -92,6 +92,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/submit_button"
                     android:text="Wyślij zamówienie">
 
                 </Button>
@@ -108,6 +109,10 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
+        android:background="@drawable/side_nav_bar_bottom"
+        app:itemIconTint="@color/colorMenuIcon"
+        app:itemTextAppearance="@style/NavigationViewStyle"
+        app:itemTextColor="@color/colorMenuText"
         app:menu="@menu/activity_main_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

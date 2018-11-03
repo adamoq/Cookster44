@@ -5,23 +5,41 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:typeface">monospace</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="fontFamily">@font/roboto_light
+        </item> <!-- target android sdk versions < 26 and > 14 if theme other than AppCompat -->
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
+        <item name="android:typeface">monospace</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="fontFamily">@font/roboto_light
+        </item> <!-- target android sdk versions < 26 and > 14 if theme other than AppCompat -->
+
     </style>
 
     <style name="Cookster">
-        <item name="android:fontFamily">@font/barber</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
     </style>
     <style name="Settings_element">
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
+        <item name="android:typeface">monospace</item>
         <item name="android:minHeight">50dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/borderd_bottom_element</item>
     </style>
+
+    <style name="NavigationViewStyle">
+        <item name="android:textSize">18dp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+
+    </style>
+
 
 </resources>

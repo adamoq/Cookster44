@@ -1,72 +1,70 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="fitCenter"
+    android:background="@drawable/login_gradient_linear"
     android:visibility="visible"
     tools:context="com.example.adamo.cookster.LoginActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
+    <!-- <android.support.constraint.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">-->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/login_background"
-        android:gravity="top|center_vertical|center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="100dp">
+        android:paddingRight="20dp">
 
-        <TextView
-            style="@style/Cookster"
-            android:layout_width="match_parent"
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:gravity="center"
-            android:keepScreenOn="true"
-            android:text="CookSter"
-            android:textColor="#000"
-            android:textSize="90sp" />
+            app:srcCompat="@drawable/cooksterorange" />
 
         <LinearLayout
             android:id="@+id/login_linear_logged_container"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/login_linear_logged"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="Zaloguj się jako "
-                    android:textSize="20sp" />
-
-
-            </LinearLayout>
-
             <Button
-                android:id="@+id/change_account"
+                android:id="@+id/log_as"
                 style="@android:style/Widget.Holo.Button"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:drawableLeft="@drawable/ic_change"
                 android:elegantTextHeight="false"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/roboto_light"
+                android:freezesText="false"
+                android:text="Zaloguj się jako "
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/change_account"
+                style="@android:style/Widget.Holo.Button"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/ic_change"
+                android:elegantTextHeight="false"
+                android:fontFamily="@font/roboto_light"
                 android:freezesText="false"
                 android:text="Zaloguj się używając innego konta"
                 android:textAllCaps="false"
-                android:textSize="13sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -88,15 +86,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
                     android:text="Login:"
-                    android:textColor="#CCC" />
+                    android:textColor="#CCC"
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/login"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/roboto_light"
                     android:layout_weight="1"
                     android:inputType="textPersonName"
                     android:minWidth="0dp"
@@ -113,15 +114,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
                     android:text="Hasło: "
-                    android:textColor="#CCC" />
+                    android:textColor="#CCC"
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/roboto_light"
                     android:layout_weight="1"
                     android:inputType="textPassword"
                     android:textColor="#FFF" />
@@ -133,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:fontFamily="@font/roboto_light"
                 android:height="30dp"
                 android:drawableLeft="@drawable/ic_warning_orange"
                 android:text="Podane dane są nieprawidłowe"
@@ -144,15 +149,17 @@
                 android:id="@+id/submit_button"
                 style="@android:style/Widget.Button"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/roboto_light"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15sp"
                 android:background="@android:drawable/screen_background_dark_transparent"
                 android:text="Zaloguj się"
-                android:textColor="#FFF" />
+                android:textColor="#FFF"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
-
+    <!-- </android.support.constraint.ConstraintLayout>-->
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 

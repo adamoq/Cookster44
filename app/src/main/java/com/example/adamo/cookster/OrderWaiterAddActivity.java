@@ -13,28 +13,92 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.LoaderManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @TargetApi(Build.VERSION_CODES.O)
 @SuppressLint("MissingSuperCall")
 public class OrderWaiterAddActivity extends BaseActivity implements RecognitionListener {
     LinearLayout linearLayout;
-    private String TAG = "SPEECHER";
+    private String TAG = "SPEECHER", dishesString = "";
     private EditText dishes;
     private ArrayList<EmployeeModel> dishesList;
     private SpeechRecognizer speechRecognizer;
+    private String dish;
+    private int count;
+    private int loaderID = 2;
+    private LoaderManager.LoaderCallbacks<JSONObject> OrderCallbacks2 = new LoaderManager.LoaderCallbacks<JSONObject>() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
+
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("dish", dish);
+            map.put("count", count);
+
+
+            return new BaseLoader(OrderWaiterAddActivity.this, "api/dishorder/", map, "POST");
+        }
+
+        @Override
+        public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
+            try {
+                Log.d("XDD", data.toString() + "  LOADER ID " + loader.getId());
+                dishesString += "\"" + data.get("resource_uri").toString() + "\",";
+                Log.d("XDD", dishesString);
+            } catch (Exception e) {
+                messageBox(OrderWaiterAddActivity.this, "errorMadafaka!", e.getMessage());
+                e.printStackTrace();
+            }
+            progress.dismiss();
+        }
+
+        @Override
+        public void onLoaderReset(android.support.v4.content.Loader<JSONObject> loader) {
+
+        }
+    };
+    private LoaderManager.LoaderCallbacks<JSONObject> WaiterTaskCallbacks = new LoaderManager.LoaderCallbacks<JSONObject>() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
+            progress.show();
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("waiter", "/api/resemployees/" + settings.getString("id", null));
+            map.put("table", ((TextView) findViewById(R.id.table)).getText());
+            map.put("dishes", "{" + dishesString + "}");
+            Log.d("xD", map.toString());
+            return new BaseLoader(OrderWaiterAddActivity.this, "api/waitertasks/", map, "POST");
+        }
+
+        @Override
+        public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
+            try {
+                Log.d("XDD", data.toString());
+            } catch (Exception e) {
+                messageBox(OrderWaiterAddActivity.this, "errorMadafaka!", e.getMessage());
+                e.printStackTrace();
+            }
+            progress.dismiss();
+        }
+
+        @Override
+        public void onLoaderReset(android.support.v4.content.Loader<JSONObject> loader) {
+
+        }
+    };
 
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_order_waiter_add);
@@ -52,6 +116,16 @@ public class OrderWaiterAddActivity extends BaseActivity implements RecognitionL
 
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechRecognizer.setRecognitionListener(this);
+
+        findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (formValidate()) sendTaskForm();
+                else
+                    Toast.makeText(OrderWaiterAddActivity.this, "Nie udało się dodać zamówienia", Toast.LENGTH_LONG).show();
+            }
+        });
+
         progress.dismiss();
 
     }
@@ -75,14 +149,28 @@ public class OrderWaiterAddActivity extends BaseActivity implements RecognitionL
         builder.setView(view2)
                 .setPositiveButton("Zapisz", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        String result = "";
+                        speechRecognizer.stopListening();
+                        speechRecognizer.cancel();
                         clearFormError();
                         for (int i = 0; i < linearLayout.getChildCount(); i++) {
-                            if (linearLayout.getChildAt(i).getClass() == CheckBox.class)
-                                if (((CheckBox) linearLayout.getChildAt(i)).isChecked())
-                                    result += ((CheckBox) linearLayout.getChildAt(i)).getText() + ", ";
+                            if (linearLayout.getChildAt(i).getClass() == DishCountView.class)
+                                if (((DishCountView) linearLayout.getChildAt(i)).getCount() > 0) {
+                                    count = ((DishCountView) linearLayout.getChildAt(i)).getCount();
+                                    dish = ((DishCountView) linearLayout.getChildAt(i)).getUrl();
+
+                                    try {
+                                        synchronized (this) {
+                                            sendForm();
+                                            wait(200);
+                                        }
+
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
                         }
-                        dishes.setText(result);
+
                     }
                 })
                 .setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
@@ -114,9 +202,9 @@ public class OrderWaiterAddActivity extends BaseActivity implements RecognitionL
     }
 
     private boolean formValidate() {
-        if (((TextView) findViewById(R.id.dishes)).getText().length() > 0 && ((TextView) findViewById(R.id.table)).getText().length() > 0)
+        if (dishesString.length() > 0 && ((TextView) findViewById(R.id.table)).getText().length() > 0)
             return true;
-        else if (((TextView) findViewById(R.id.dishes)).getText().length() == 0)
+        else if (dishesString.length() == 0)
             findViewById(R.id.dishes).setBackground(getResources().getDrawable(R.drawable.error_view));
         else
             findViewById(R.id.table).setBackground(getResources().getDrawable(R.drawable.error_view));
@@ -129,19 +217,25 @@ public class OrderWaiterAddActivity extends BaseActivity implements RecognitionL
     }
 
     private void sendForm() {
-        // getSupportLoaderManager().initLoader(2, null, FormCallbacks).forceLoad();
+        progress.show();
+        getSupportLoaderManager().initLoader(loaderID++, null, OrderCallbacks2).forceLoad();
+    }
+
+    private void sendTaskForm() {
+
+        LoaderManager loaderManager = getSupportLoaderManager();
+        if (loaderManager.getLoader(loaderID++) != null)
+            loaderManager.restartLoader(loaderID++, null, WaiterTaskCallbacks).forceLoad();
+        else loaderManager.initLoader(loaderID++, null, WaiterTaskCallbacks).forceLoad();
     }
 
     public void onReadyForSpeech(Bundle params) {
-        Log.d(TAG, "onReadyForSpeech");
     }
 
     public void onBeginningOfSpeech() {
-        Log.d(TAG, "onBeginningOfSpeech");
     }
 
     public void onRmsChanged(float rmsdB) {
-        Log.d(TAG, "onRmsChanged");
     }
 
     public void onBufferReceived(byte[] buffer) {
@@ -149,7 +243,6 @@ public class OrderWaiterAddActivity extends BaseActivity implements RecognitionL
     }
 
     public void onEndOfSpeech() {
-        Log.d(TAG, "onEndofSpeech");
     }
 
     public void onError(int error) {
@@ -220,7 +313,7 @@ public class OrderWaiterAddActivity extends BaseActivity implements RecognitionL
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "com.example.adamo.cookster");
         intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
         // intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,5);
-        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 6000);
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 4000);
         speechRecognizer.startListening(intent);
     }
 }

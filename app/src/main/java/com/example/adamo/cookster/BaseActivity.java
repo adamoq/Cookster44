@@ -38,7 +38,7 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             try {
                 renderData(data);
             } catch (Exception e) {
-                messageBox(BaseActivity.this, "errorMadafaka!", e.getMessage());
+                messageBox(BaseActivity.this, "Błąd przy połączeniu z serwerem", e.getMessage());
                 e.printStackTrace();
             }
             progress.dismiss();
@@ -50,11 +50,14 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
         }
     };
     private String position;
+
     protected void onCreate(Bundle savedInstanceState, String dir) {
         progress = ProgressDialog.show(this, "Proszę czekać", "Pobieram dane z serwera...");
         super.onCreate(savedInstanceState);
         this.dir = dir;
         NavigationView navigationView = findViewById(R.id.nav_view);
+        //  navigationView.getMenu().clear();
+        // navigationView.inflateMenu(R.menu.activity_main_drawer);
         navigationView.setNavigationItemSelectedListener(this);
         settings = getSharedPreferences("login", 0);
         try {
@@ -71,7 +74,14 @@ abstract class BaseActivity extends AppCompatActivity implements NavigationView.
             Menu nav_Menu = navigationView.getMenu();
             nav_Menu.findItem(R.id.nav_orders_add).setVisible(false);
         }
-        getSupportLoaderManager().initLoader(0, null, mLoaderCallbacks).forceLoad();
+        reloadActivity();
+    }
+
+    void reloadActivity() {
+        LoaderManager loaderManager = getSupportLoaderManager();
+        if (loaderManager.getLoader(1) != null)
+            loaderManager.restartLoader(1, null, mLoaderCallbacks).forceLoad();
+        else loaderManager.initLoader(1, null, mLoaderCallbacks).forceLoad();
 
     }
 

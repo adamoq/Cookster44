@@ -19,6 +19,7 @@ public class DishView extends LinearLayout {
         switch (dish.getAv()) {
             case "1":
                 ((ImageView) findViewById(R.id.dish_av)).setImageResource(R.drawable.ic_state_bad);
+                findViewById(R.id.activity_dishes_linear).setBackground(getResources().getDrawable(R.drawable.borderd_bottom_element_faded));
                 break;
             case "0":
                 ((ImageView) findViewById(R.id.dish_av)).setImageResource(R.drawable.ic_state_ok);

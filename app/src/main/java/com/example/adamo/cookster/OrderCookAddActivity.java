@@ -203,10 +203,10 @@ public class OrderCookAddActivity extends BaseActivity {
         getSupportLoaderManager().initLoader(2, null, FormCallbacks).forceLoad();
     }
 
-    private HashMap<String, String> generateForm() {
-        HashMap<String, String> map = new HashMap<>();
+    private HashMap<String, Object> generateForm() {
+        HashMap<String, Object> map = new HashMap<>();
         //if (order.getState().equals("0"))
-        map.put("products", (String) ((TextView) findViewById(R.id.products)).getText());
+        map.put("products", ((TextView) findViewById(R.id.products)).getText());
         if (((TextView) findViewById(R.id.comment)).length() > 0)
             map.put("comment", ((EditText) findViewById(R.id.comment)).getText().toString());
         Spinner spinner = findViewById(R.id.spinner_employees);
