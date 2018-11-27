@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.adamo.cookster.SettingsActivity">
+        tools:context="com.example.adamo.cooksterapp.SettingsActivity">
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -36,7 +36,8 @@
                     android:fontFamily="@font/roboto_light"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Adres publiczny serwisu" />
+                    android:text="Adres publiczny serwisu"
+                    android:textSize="18dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -45,6 +46,7 @@
                         android:layout_weight="1"
                         android:scrollHorizontally="true"
                         android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="@string/app_url" />
                 </LinearLayout>
 
@@ -59,6 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="ID użytkownika" />
 
                 <TextView
@@ -67,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_light"
+                    android:textSize="18dp"
                     android:text="ID" />
                 </LinearLayout>
 
@@ -82,6 +86,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="Dane użytkownika" />
 
                 <TextView
@@ -90,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_light"
+                    android:textSize="18dp"
                     android:text=">user" />
                 </LinearLayout>
 
@@ -104,6 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="Wersja systemu" />
 
                 <TextView
@@ -112,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_light"
+                    android:textSize="18dp"
                     android:singleLine="false"
                     android:text=">26" />
                 </LinearLayout>
@@ -125,7 +133,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:layout_weight="1"
                         android:text="Numer telefonu" />
 
@@ -135,6 +145,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="fill"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="18dp"
                     android:layout_weight="1"
                     android:drawableRight="@drawable/ic_edit"
                     android:text="Nie uzupełniony" />
@@ -150,6 +162,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="Hasło" />
 
                 <Button
@@ -157,8 +171,11 @@
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="18dp"
                     android:layout_gravity="fill"
                     android:layout_weight="1"
+
                     android:drawableRight="@drawable/ic_edit"
                     android:text="Zmień" />
                 </LinearLayout>

@@ -10,7 +10,7 @@
             android:title="Moje zamówienia" />
         <item
             android:id="@+id/nav_orders_add"
-            android:icon="@drawable/ic_order_add"
+            android:icon="@drawable/ic_plus"
             android:title="Zleć zamówienie" />
         <item
             android:id="@+id/nav_dishes"

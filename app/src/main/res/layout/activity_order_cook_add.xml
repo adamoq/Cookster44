@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.adamo.cookster.OrderCookAddActivity">
+        tools:context="com.example.adamo.cooksterapp.OrderCookAddActivity">
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -29,52 +29,77 @@
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="3"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
-
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_light"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:textSize="18dp"
                         android:text="Dostawca" />
 
                     <Spinner
                         android:id="@+id/spinner_employees"
                         android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:dropDownWidth="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="3"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Produkty" />
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_light"
+                        android:gravity="start"
+                        android:text="Produkty"
+                        android:textSize="18dp" />
 
-                    <EditText
-                        android:id="@+id/products"
+                    <LinearLayout
+                        android:id="@+id/order_products_selected"
+                        android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:orientation="vertical"
                         android:layout_weight="1"
-                        android:hint="Wybierz produkty" />
+                        android:visibility="visible">
+
+                        <EditText
+                            android:id="@+id/products"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_light"
+                            android:hint="Dodaj produkty"
+                            android:singleLine="true"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="3"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="Priorytet" />
 
                     <Spinner
@@ -88,17 +113,22 @@
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="3"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="Komentarz" />
 
                     <EditText
                         android:id="@+id/comment"
                         android:layout_width="match_parent"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="Wpisz komentarz"
@@ -109,6 +139,8 @@
                     android:id="@+id/submit_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="18dp"
                     android:text="Wyślij zamówienie">
 
                 </Button>

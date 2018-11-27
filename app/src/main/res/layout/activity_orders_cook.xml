@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        tools:context="com.example.adamo.cookster.OrdersCookActivity">
+        tools:context="com.example.adamo.cooksterapp.OrdersCookActivity">
 
         <LinearLayout
             android:id="@+id/lidear_orders_cook_choose"
@@ -25,6 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_weight="2"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="18dp"
                 android:dropDownVerticalOffset="70dp" />
 
             <ToggleButton
@@ -32,6 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+
+                android:fontFamily="@font/roboto_light"
+                android:textSize="18dp"
                 android:textOff="Wszystkie zamówienia"
                 android:textOn="Moje zamówienia" />
         </LinearLayout>

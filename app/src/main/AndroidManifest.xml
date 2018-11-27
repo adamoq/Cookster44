@@ -10,14 +10,14 @@
     <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
     <application
         android:allowBackup="true"
-        android:name=".App"
+        android:name="com.example.adamo.cooksterapp.App"
         android:icon="@drawable/logo"
         android:label="CookSter"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.example.adamo.cooksterapp.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="CookSter"
             android:theme="@style/AppTheme.NoActionBar"           >
@@ -27,28 +27,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProductsActivity"
+            android:name="com.example.adamo.cooksterapp.ProductsActivity"
             android:theme="@style/AppFullScreenTheme" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.adamo.cooksterapp.MainActivity"
             android:theme="@style/AppFullScreenTheme" />
         <activity
-            android:name=".EmployeesActivity"
+            android:name="com.example.adamo.cooksterapp.EmployeesActivity"
             android:theme="@style/AppFullScreenTheme" />
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.example.adamo.cooksterapp.SettingsActivity"
             android:theme="@style/AppFullScreenTheme" />
         <activity
-            android:name=".DishActivity"
+            android:name="com.example.adamo.cooksterapp.DishActivity"
             android:theme="@style/AppFullScreenTheme" />
         <activity
-            android:name=".OrdersCookActivity"
+            android:name="com.example.adamo.cooksterapp.OrdersCookActivity"
             android:theme="@style/AppFullScreenTheme" />
         <activity
-            android:name=".OrderCookAddActivity"
+            android:name="com.example.adamo.cooksterapp.OrderCookAddActivity"
             android:theme="@style/AppFullScreenTheme" />
         <activity
-            android:name=".OrderWaiterAddActivity"
+            android:name="com.example.adamo.cooksterapp.OrderWaiterAddActivity"
             android:theme="@style/AppFullScreenTheme" />
     </application>
 

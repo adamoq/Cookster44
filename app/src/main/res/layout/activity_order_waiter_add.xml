@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.adamo.cookster.OrderWaiterAddActivity">
+        tools:context="com.example.adamo.cooksterapp.OrderWaiterAddActivity">
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -29,12 +29,15 @@
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="3"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="Stół" />
 
                     <EditText
@@ -42,6 +45,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:hint="Wpisz numer stolika" />
                 </LinearLayout>
 
@@ -49,41 +54,60 @@
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="3"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
-
+                        android:layout_weight="2"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_light"
+                        android:gravity="center_vertical|start"
+                        android:textSize="18dp"
                         android:text="Dania" />
 
-                    <EditText
-                        android:id="@+id/dishes"
+                    <LinearLayout
+                        android:id="@+id/order_products_selected"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="15dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Wybierz dania"
-                        android:scrollHorizontally="true" />
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <EditText
+                            android:id="@+id/dishes"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="15dp"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_light"
+                            android:hint="Wybierz dania"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="3"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:text="Komentarz" />
 
                     <EditText
                         android:id="@+id/comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="18dp"
                         android:layout_weight="1"
                         android:hint="Wpisz komentarz do zamówienia" />
                 </LinearLayout>
@@ -93,6 +117,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/submit_button"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="18dp"
                     android:text="Wyślij zamówienie">
 
                 </Button>

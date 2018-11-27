@@ -1,5 +1,7 @@
 package com.example.adamo.cookster;
 
+import com.example.adamo.cooksterapp.DishModel;
+
 import org.json.JSONArray;
 import org.junit.Test;
 
