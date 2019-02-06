@@ -18,40 +18,48 @@
             android:id="@+id/lidear_orders_cook_choose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#EEE"
             android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:fontFamily="@font/roboto_light"
-                android:textSize="18dp"
-                android:dropDownVerticalOffset="70dp" />
+
+                android:dropDownVerticalOffset="60dp" />
 
             <ToggleButton
                 android:id="@+id/toggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
 
                 android:fontFamily="@font/roboto_light"
-                android:textSize="18dp"
-                android:textOff="Wszystkie zamówienia"
-                android:textOn="Moje zamówienia" />
+                android:textOff="@string/all_orders"
+                android:textOn="@string/my_orders"
+                android:textSize="13dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/lidear_orders_cook"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:id="@+id/lidear_orders_cook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
 
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 

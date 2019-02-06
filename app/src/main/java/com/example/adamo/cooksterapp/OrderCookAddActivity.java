@@ -4,10 +4,6 @@ package com.example.adamo.cooksterapp;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -16,7 +12,6 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -38,7 +33,7 @@ import java.util.HashMap;
 @TargetApi(Build.VERSION_CODES.O)
 @SuppressLint("MissingSuperCall")
 public class OrderCookAddActivity extends BaseActivity {
-
+    private Boolean hasError = false;
     LinearLayout productsLinear;
     TextView products;
     LinearLayout linearLayout2;
@@ -61,67 +56,41 @@ public class OrderCookAddActivity extends BaseActivity {
                 messageBox(OrderCookAddActivity.this, "errorMadafaka!", e.getMessage());
                 e.printStackTrace();
             }
-            progress.dismiss();
+            progress.hide();
         }
 
         @Override
         public void onLoaderReset(android.support.v4.content.Loader<JSONObject> loader) {
-            progress.dismiss();
+            progress.hide();
         }
     };
-    private LoaderManager.LoaderCallbacks<JSONObject> OrderCallbacks = new LoaderManager.LoaderCallbacks<JSONObject>() {
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @Override
-        public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
-            return new BaseLoader(OrderCookAddActivity.this, "api/resemployees/?position=2");
-        }
 
-        @Override
-        public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
-            try {
-
-                if (data.has("error")) throw new Exception();
-                else renderData(data);
-            } catch (Exception e) {
-                messageBox(OrderCookAddActivity.this, "errorMadafaka!", e.getMessage());
-                e.printStackTrace();
-            }
-            progress.dismiss();
-            getSupportLoaderManager().initLoader(3, null, OrderCallbacks2).forceLoad();
-        }
-
-        @Override
-        public void onLoaderReset(android.support.v4.content.Loader<JSONObject> loader) {
-            progress.dismiss();
-        }
-    };
     private LoaderManager.LoaderCallbacks<JSONObject> FormCallbacks = new LoaderManager.LoaderCallbacks<JSONObject>() {
         @RequiresApi(api = Build.VERSION_CODES.O)
         public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
-            progress.show();
             return new BaseLoader(OrderCookAddActivity.this, "api/cooktasks/", generateForm(), "POST");
         }
 
         @Override
         public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
-
             try {
-                if (data.has("ok")) {
+                Log.d("XX", "count" + data.has("count"));
+                Log.d("XX", "PROVIDER" + data.toString());
+
+                if (data.has("id") || data.has("ok") || data.has("count")) {
                     Toast.makeText(OrderCookAddActivity.this, "Pomyślnie dodano zamówienie do bazy.", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(OrderCookAddActivity.this, OrdersCookActivity.class));
                 } else throw new Exception();
             } catch (Exception e) {
                 Toast.makeText(OrderCookAddActivity.this, "Nie udało się dodać zamówienai do bazy", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             progress.hide();
-            //startActivity(new Intent(OrderCookAddActivity.this, OrderCookAddActivity.class));
-
-
         }
 
         @Override
         public void onLoaderReset(android.support.v4.content.Loader<JSONObject> loader) {
-
+            progress.show();
         }
     };
     private NotificationCompat.Builder notification_builder;
@@ -141,56 +110,23 @@ public class OrderCookAddActivity extends BaseActivity {
         findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progress.show();
                 if (formValidated()) sendForm();
-                else showFormError();
+                else {
+                    showFormError();
+                    progress.hide();
+                }
             }
         });
-        getSupportLoaderManager().initLoader(1, null, OrderCallbacks).forceLoad();
+        //getSupportLoaderManager().initLoader(1, null, OrderCallbacks).forceLoad();
 
-        //notifications
-        Intent open_activity_intent = new Intent(this, OrderCookAddActivity.class);
-        PendingIntent pending_intent = PendingIntent
-                .getActivity(this, 0, open_activity_intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        notification_builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.cookster_orange)
-                .setContentTitle("Notification Title")
-                .setContentText("Notification Body")
-                .setAutoCancel(true)
-                .setContentIntent(pending_intent);
-
-
-        NotificationManager notification_manager = (NotificationManager) this
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String chanel_id = "3000";
-            CharSequence name = "Channel Name";
-            String description = "Chanel Description";
-            int importance = NotificationManager.IMPORTANCE_LOW;
-            NotificationChannel mChannel = new NotificationChannel(chanel_id, name, importance);
-            mChannel.setDescription(description);
-            mChannel.enableLights(true);
-            //mChannel.setLightColor(Color.BLUE);
-            notification_manager.createNotificationChannel(mChannel);
-            notification_builder = new NotificationCompat.Builder(this, chanel_id);
-        } else {
-            notification_builder = new NotificationCompat.Builder(this);
-        }
-        notification_builder.setSmallIcon(R.drawable.cookster_orange)
-                .setContentTitle("Notification Title")
-                .setContentText("Notification Body")
-                .setAutoCancel(true)
-                .setContentIntent(pending_intent);
-
-
-// notificationId is a unique int for each notification that you must define
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(0, notification_builder.build());
 
     }
 
     protected void renderData(JSONObject data) throws JSONException {
-        super.renderData(data);
+        super.renderData(data, R.id.nav_orders_add);
+        if (data.has("error")) return;
+
         JSONArray arr = data.getJSONArray("objects");
         Log.d("XX", "XXXX" + arr);
         productList = new ArrayList<>();
@@ -207,6 +143,7 @@ public class OrderCookAddActivity extends BaseActivity {
             Log.d("XX", "XXXX" + i);
             //linear.addView(new ProductView(this, arr.getJSONObject(i).getString("name"), arr.getJSONObject(i).getString("av")));
         }
+        getSupportLoaderManager().initLoader(3, null, OrderCallbacks2).forceLoad();
     }
 
     private void renderExternalData(JSONObject data) throws JSONException {
@@ -256,8 +193,8 @@ public class OrderCookAddActivity extends BaseActivity {
         final View view2 = View.inflate(OrderCookAddActivity.this, R.layout.activity_order_cook_add_popup, null);
         linearLayout2 = view2.findViewById(R.id.linear_dishes);
         final AlertDialog dialog;
-        builder.setView(view2)
-                .setPositiveButton("Zapisz", new DialogInterface.OnClickListener() {
+        builder.setView(view2);
+        builder.setPositiveButton("Zapisz", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, int id) {
                         String result = "";
                         clearFormError();

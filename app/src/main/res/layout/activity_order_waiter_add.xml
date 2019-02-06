@@ -24,7 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <LinearLayout
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
@@ -36,17 +35,190 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
+                        android:text="@string/cook" />
+
+                    <Spinner
+                        android:id="@+id/spinner_employees"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:dropDownWidth="fill_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/reservation" />
+
+                    <CheckBox
+                        android:id="@+id/reservation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/supply" />
+
+                    <CheckBox
+                        android:id="@+id/supply"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Czy z dostawą" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/takeaway" />
+
+                    <CheckBox
+                        android:id="@+id/takeaway"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Czy na wynos" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/reservation_linear"
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/reservation_date" />
+
+
+                    <EditText
+                        android:id="@+id/order_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="date" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/takeaway_linear"
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/supplier" />
+
+                    <Spinner
+                        android:id="@+id/spinner_employees_takeaway"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:dropDownWidth="fill_parent"
                         android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
-                        android:text="Stół" />
+                        android:textSize="16dp" />
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/currency" />
+
+                    <Spinner
+                        android:id="@+id/spinner_currencies"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:dropDownWidth="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/language" />
+
+                    <Spinner
+                        android:id="@+id/spinner_lang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:dropDownWidth="fill_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/table_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/table" />
 
                     <EditText
                         android:id="@+id/table"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
                         android:hint="Wpisz numer stolika" />
                 </LinearLayout>
 
@@ -54,17 +226,15 @@
                     style="@style/Settings_element"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="3"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_weight="2"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_light"
+                        android:layout_weight="2"
                         android:gravity="center_vertical|start"
-                        android:textSize="18dp"
-                        android:text="Dania" />
+                        android:text="@string/dishes" />
 
                     <LinearLayout
                         android:id="@+id/order_products_selected"
@@ -74,15 +244,13 @@
                         android:orientation="vertical"
                         android:visibility="visible">
 
-                        <EditText
+                        <Button
                             android:id="@+id/dishes"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginRight="15dp"
                             android:layout_weight="2"
-                            android:fontFamily="@font/roboto_light"
-                            android:hint="Wybierz dania"
-                            android:textSize="18dp" />
+                            android:hint="Wybierz dania" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -98,28 +266,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
-                        android:text="Komentarz" />
+                        android:text="@string/comment" />
 
                     <EditText
                         android:id="@+id/comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
+                        android:maxLength="200"
                         android:layout_weight="1"
                         android:hint="Wpisz komentarz do zamówienia" />
                 </LinearLayout>
 
 
                 <Button
+                    android:id="@+id/submit_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/submit_button"
-                    android:fontFamily="@font/roboto_light"
-                    android:textSize="18dp"
-                    android:text="Wyślij zamówienie">
+                    android:text="@string/send_order">
 
                 </Button>
             </LinearLayout>

@@ -31,6 +31,7 @@ public class EmployeeExpendView extends LinearLayout {
         final String phone = number;
         TextView tv = new TextView(context);
         tv.setTypeface(font);
+
         tv.setTextSize(18);
         Drawable img = ContextCompat.getDrawable(context, R.drawable.ic_notebook);
         img.setBounds(0, 0, 60, 60);

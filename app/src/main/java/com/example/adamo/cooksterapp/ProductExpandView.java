@@ -30,7 +30,7 @@ public class ProductExpandView extends LinearLayout {
 
         @RequiresApi(api = Build.VERSION_CODES.O)
         public android.support.v4.content.Loader<JSONArray> onCreateLoader(int id, Bundle args) {
-            progress = ProgressDialog.show(context, "Proszę czekać", "Pobieram dane z serwera...");
+            progress = ProgressDialog.show(context, getResources().getString(R.string.please_wait), getResources().getString(R.string.loading_desc));
             progress.show();
 
             return new ArrayLoader(context, "mobilereset/product/?id=" + productID + "&state=" + state);
@@ -66,7 +66,7 @@ public class ProductExpandView extends LinearLayout {
         this.context = context;
         this.loaderManager = loaderManager;
         TextView tv = new TextView(context);
-        tv.setText("Dostępność produktu");
+        tv.setText(getResources().getString(R.string.availbility));
         final Typeface regular = ResourcesCompat.getFont(context, R.font.roboto_light);
         tv.setTypeface(regular);
         tv.setPadding(30, 0, 0, 0);

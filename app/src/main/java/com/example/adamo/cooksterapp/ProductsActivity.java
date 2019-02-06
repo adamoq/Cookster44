@@ -25,6 +25,9 @@ public class ProductsActivity extends BaseActivity {
     }
 
     protected void renderData(JSONObject obj) throws JSONException {
+        super.renderData(obj, R.id.nav_products);
+        if (obj.has("error")) return;
+
         JSONArray arr = obj.getJSONArray("objects");
         LinearLayout linear = this.findViewById(R.id.linear_products);
         if (linear.getChildCount() > 0) linear.removeAllViews();
@@ -34,5 +37,6 @@ public class ProductsActivity extends BaseActivity {
             Log.d("XD", "x" + arr.getJSONObject(i).getInt("id"));
             linear.addView(new ProductView(this, arr.getJSONObject(i).getString("name"), arr.getJSONObject(i).getString("av"), position, arr.getJSONObject(i).getInt("id"), getSupportLoaderManager()));
         }
+        progress.dismiss();
     }
 }

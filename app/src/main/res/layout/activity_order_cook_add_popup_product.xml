@@ -6,6 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="horizontal"
+    style="@style/Settings_element"
+    android:paddingBottom="10dp"
     android:weightSum="11">
 
     <EditText

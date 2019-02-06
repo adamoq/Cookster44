@@ -7,36 +7,44 @@
         <item
             android:id="@+id/nav_orders"
             android:icon="@drawable/ic_menu_orders"
-            android:title="Moje zamówienia" />
+            android:title="@string/my_orders" />
         <item
             android:id="@+id/nav_orders_add"
             android:icon="@drawable/ic_plus"
-            android:title="Zleć zamówienie" />
+            android:title="@string/add_order" />
+        <item
+            android:id="@+id/nav_reservation"
+            android:icon="@drawable/ic_menu_dishes"
+            android:title="@string/reservations" />
         <item
             android:id="@+id/nav_dishes"
             android:icon="@drawable/ic_menu_dishes"
-            android:title="Dania" />
+            android:title="@string/dishes" />
         <item
             android:id="@+id/nav_products"
             android:icon="@drawable/ic_menu_products"
-            android:title="Produkty" />
+            android:title="@string/products" />
 
     </group>
 
-    <item android:title="Administracja">
+    <item android:title="@string/administration">
         <menu>
             <item
                 android:id="@+id/nav_emloyees"
                 android:icon="@drawable/ic_employees"
-                android:title="Pracownicy" />
+                android:title="@string/users" />
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_settings"
-                android:title="Ustawienia konta" />
+                android:title="@string/setting" />
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_menu_logout"
+                android:title="@string/exit" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_logout"
-                android:title="Wyloguj się" />
+                android:title="@string/log_out" />
         </menu>
     </item>
 

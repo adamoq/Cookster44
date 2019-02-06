@@ -11,24 +11,57 @@ import com.example.adamo.cookster.R;
 public class OrderCookAddProductElement extends LinearLayout {
     String productName;
     String productUnit;
-    Float productCount;
+    Float productCount, defaultPrice;
     Integer productId;
     Integer Id;
     TextView tv;
     String url;
+    String comment = "";
 
-    public OrderCookAddProductElement(Context context, String productName, Float count, String unit) {
+    public OrderCookAddProductElement(Context context, String productName, Float count, String unit, String url, Integer id, Float defaultPrice) {
         super(context);
         this.productUnit = unit;
         this.productName = productName;
         this.productCount = count;
-
+        this.defaultPrice = defaultPrice;
+        this.url = url;
+        this.productId = id;
         inflate(getContext(), R.layout.activity_order_cook_add_product, this);
         ((TextView) findViewById(R.id.order_product_name)).setText(productName);
         if (count > 0) ((TextView) findViewById(R.id.order_product_count)).setText("" + count);
         ((TextView) findViewById(R.id.order_product_currency)).setText(unit);
         this.tv = findViewById(R.id.order_product_count);
+        this.setOnHoverListener(new OnHoverListener() {
+            @Override
+            public boolean onHover(View view, MotionEvent motionEvent) {
 
+                view.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                return false;
+            }
+        });
+        this.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    view.setBackgroundColor(0);
+                    return true;
+                } else {
+                    view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+                }
+
+                return false;
+            }
+        });
+
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public OrderCookAddProductElement(Context context, String productName, Float count, String unit, String url, Integer id) {
@@ -95,6 +128,9 @@ public class OrderCookAddProductElement extends LinearLayout {
         return productCount;
     }
 
+    public Float getDefaultPrice() {
+        return defaultPrice;
+    }
     public void setProductCount(Float productCount) {
         this.productCount = productCount;
         tv.setText("" + productCount);

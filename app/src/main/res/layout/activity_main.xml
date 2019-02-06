@@ -17,72 +17,27 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-        tools:context="com.example.adamo.cooksterapp.MainActivity">
+        tools:context="com.example.adamo.cooksterapp.ReservationsActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/my_toolbar"
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:minHeight="?attr/actionBarSize"
-            app:titleTextColor="@android:color/white">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Toolbar Title"
-                android:textColor="@android:color/white" />
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-        </android.support.v7.widget.Toolbar>
-        <TextView
-            android:id="@+id/welcome_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Witaj w aplikacji "
-
-            android:textSize="30dp" />
-
-        <TextView
-            style="@style/Cookster"
+            <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:fontFamily="@font/roboto_light"
-            android:gravity="center"
-            android:keepScreenOn="true"
-            android:text="CookSter"
-            android:textColor="#000"
-            android:textSize="90sp" />
+                android:id="@+id/lidear_orders_cook"
+                android:layout_height="match_parent"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zostałeś zalogowany jako"
+                android:orientation="vertical">
 
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/welcome_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/open_drawer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableBottom="@mipmap/ic_welcome_arrow"
-            android:text="Menu znajduje się po lewej stronie"
-
-            android:textSize="20dp" />
-
-
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

@@ -34,20 +34,16 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_light"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Dostawca" />
+                        android:layout_weight="2"
+                        android:text="@string/provider" />
 
                     <Spinner
                         android:id="@+id/spinner_employees"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
                         android:dropDownWidth="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -61,10 +57,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="2"
-                        android:fontFamily="@font/roboto_light"
                         android:gravity="start"
-                        android:text="Produkty"
-                        android:textSize="18dp" />
+                        android:text="@string/products" />
 
                     <LinearLayout
                         android:id="@+id/order_products_selected"
@@ -78,10 +72,8 @@
                             android:id="@+id/products"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_light"
-                            android:hint="Dodaj produkty"
-                            android:singleLine="true"
-                            android:textSize="18dp" />
+                            android:hint="@string/add_products"
+                            android:singleLine="true" />
                     </LinearLayout>
 
 
@@ -98,9 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
-                        android:text="Priorytet" />
+                        android:text="@string/priority" />
 
                     <Spinner
                         android:id="@+id/spinner_priority"
@@ -120,18 +110,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
-                        android:text="Komentarz" />
+                        android:text="@string/comment" />
 
                     <EditText
                         android:id="@+id/comment"
                         android:layout_width="match_parent"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Wpisz komentarz"
+                        android:hint="@string/comment_hint"
                         android:singleLine="false" />
                 </LinearLayout>
 
@@ -139,9 +125,7 @@
                     android:id="@+id/submit_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
-                    android:textSize="18dp"
-                    android:text="Wyślij zamówienie">
+                    android:text="@string/add_order">
 
                 </Button>
             </LinearLayout>

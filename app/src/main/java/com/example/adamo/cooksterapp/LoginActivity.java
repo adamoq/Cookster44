@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoaderManager.LoaderCallbacks<JSONObject> mLoaderCallbacks = new LoaderManager.LoaderCallbacks<JSONObject>() {
         @Override
         public android.support.v4.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
-            progress = ProgressDialog.show(context, "Proszę czekać", "Pobieram dane z serwera...");
+            progress = ProgressDialog.show(context, getResources().getString(R.string.please_wait), getResources().getString(R.string.loading_desc));
 
             return new LoginLoader(getApplicationContext(), "mobileapi/?login=" + login + "&password=" + password);
         }
@@ -40,14 +42,15 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onLoadFinished(android.support.v4.content.Loader<JSONObject> loader, JSONObject data) {
             try {
-                if (data.has("error")) throw new Exception();
+                if (data.has("error"))
+                    messageBox(LoginActivity.this, "Niepowodzenie w logowaniu", data.getString("error"));
                 else readStream(data);
             } catch (JSONException e) {
                 e.printStackTrace();
-                messageBox(LoginActivity.this, "Błąd", e.getMessage());
+                messageBox(LoginActivity.this, "Niepowodzenie w logowaniu", e.getMessage());
             } catch (Exception e) {
                 e.printStackTrace();
-                messageBox(LoginActivity.this, "Błąd2", e.getMessage());
+                messageBox(LoginActivity.this, "Niepowodzenie w logowaniu", e.getMessage());
             }
             progress.dismiss();
         }
@@ -72,30 +75,41 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void readStream(JSONObject obj) throws JSONException {
-        if (obj.has("error")) messageBox(this, "Błąd", obj.getString("error"));
+        if (obj.has("error")) messageBox(this, "Niepowodzenie w logowaniu", obj.getString("error"));
         if (obj == null) showError();
         else {
             SharedPreferences.Editor editor = getSharedPreferences("login", 0).edit();
             editor.putString("name", obj.getString("name") + " " + obj.getString("surname"))
                     .putString("login", obj.getString("login"))
                     .putString("id", obj.getString("id"))
-                    .putString("password", obj.getString("password"));
+                    .putString("password", obj.getString("password"))
+                    .putString("currency", obj.getString("currency"))
+                    .putString("lang", obj.getString("lang"))
+                    .putString("resname", obj.getString("password"))
+                    .putString("supply", obj.getString("supply"))
+                    .putString("takeaway", obj.getString("takeaway"));
+            if (obj.getString("avatar") != null)
+                editor.putString("avatar", obj.getString("avatar"));
             if (obj.has("phonenumber"))
                 editor.putString("phonenumber", obj.getString("phonenumber"));
             switch (obj.getString("position")) {
                 case "0":
-                    editor.putString("position", "Kelner");
+                    editor.putString("position", getResources().getString(R.string.waiter));
                     break;
                 case "1":
-                    editor.putString("position", "Kucharz");
+                    editor.putString("position", getResources().getString(R.string.cook));
                     break;
                 case "2":
-                    editor.putString("position", "Dostawca");
+                    editor.putString("position", getResources().getString(R.string.provider));
+                    break;
+                case "3":
+                    editor.putString("position", getResources().getString(R.string.supplier));
                     break;
             }
             editor.commit();
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, DishActivity.class);
             startActivity(intent);
+            startService(new Intent(this, BackgroundService.class));
 
         }
 
@@ -155,11 +169,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private void messageBox(Context context, String method, String message) {
         Log.d("ex", "EXCEPTION: " + method + message);
+
+        Typeface font = ResourcesCompat.getFont(context, R.font.roboto_light);
         AlertDialog.Builder messageBox = new AlertDialog.Builder(context);
         messageBox.setTitle(method);
         messageBox.setMessage(message);
         messageBox.setCancelable(false);
+        //messageBox.setCustomTitle(textView);
         messageBox.setNeutralButton("OK", null);
-        messageBox.show();
+        AlertDialog dialog = messageBox.show();
+        TextView textView = dialog.findViewById(android.R.id.message);
+        textView.setTypeface(font);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

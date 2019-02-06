@@ -38,11 +38,15 @@ public class DishModel {
         String res = "";
 
         try {
-            for (int i = 0; i < products.length(); i++) {
-                res += products.getJSONObject(i).getString("name") + ", ";
-            }
+            if (products.length() < 1) res = "-";
+            else
+                for (int i = 0; i < products.length(); i++) {
+                    res += products.getJSONObject(i).getString("product__name") + " (" + products.getJSONObject(i).getString("count") + products.getJSONObject(i).getString("product__unit") + ") , ";
+                }
+
         } catch (JSONException e) {
             e.printStackTrace();
+            res = "-";
         }
 
 

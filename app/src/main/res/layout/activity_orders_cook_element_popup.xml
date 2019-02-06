@@ -11,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="center"
-        android:fontFamily="@font/roboto_light"
-        android:text="Dane zamówienia"
-        android:textSize="18dp" />
+        android:text="@string/order_details" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,42 +21,37 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
-            android:text="Produkty" />
+            android:layout_weight="2"
+            android:text="@string/products" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/order_products"
             android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
             android:scrollHorizontally="true" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Settings_element"
+        android:minHeight="30dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
-            android:text="Priorytet" />
+            android:layout_weight="2"
+            android:text="@string/priority" />
 
         <TextView
             android:id="@+id/order_priority"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
             android:layout_weight="1"
             android:scrollHorizontally="true" />
     </LinearLayout>
@@ -66,15 +59,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Settings_element"
+        android:minHeight="30dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
-            android:text="Status" />
+            android:layout_weight="2"
+            android:text="@string/status" />
 
         <TextView
             android:id="@+id/order_status"
@@ -82,23 +75,21 @@
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
             android:scrollHorizontally="true" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Settings_element"
+        android:minHeight="30dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
-            android:text="Komentarz" />
+            android:layout_weight="2"
+            android:text="@string/comment" />
 
         <TextView
             android:id="@+id/order_comment"
@@ -106,8 +97,6 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
             android:scrollHorizontally="true" />
     </LinearLayout>
 
@@ -116,7 +105,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:fontFamily="@font/roboto_light"
-        android:textSize="18dp"
-        android:text="Zmień status zamówienia" />
+        android:text="@string/changestatus" />
 </LinearLayout>

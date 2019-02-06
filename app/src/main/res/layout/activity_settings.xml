@@ -33,20 +33,16 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:fontFamily="@font/roboto_light"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Adres publiczny serwisu"
-                    android:textSize="18dp" />
+                    android:text="@string/service_url" />
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
                         android:scrollHorizontally="true"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
                         android:text="@string/app_url" />
                 </LinearLayout>
 
@@ -60,18 +56,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
-                        android:text="ID użytkownika" />
+                        android:text="@string/user_id" />
 
                 <TextView
                     android:id="@+id/user_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/roboto_light"
-                    android:textSize="18dp"
-                    android:text="ID" />
+                    android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -85,18 +76,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
-                        android:text="Dane użytkownika" />
+                        android:text="@string/user_details" />
 
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/roboto_light"
-                    android:textSize="18dp"
-                    android:text=">user" />
+                    android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -109,17 +95,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
-                        android:text="Wersja systemu" />
+                        android:text="@string/system_version" />
 
                 <TextView
                     android:id="@+id/user_system"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/roboto_light"
-                    android:textSize="18dp"
                     android:singleLine="false"
                     android:text=">26" />
                 </LinearLayout>
@@ -133,11 +115,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
                         android:layout_weight="1"
-                        android:text="Numer telefonu" />
+                        android:text="@string/phonenumber" />
 
                 <Button
                     android:id="@+id/user_phone"
@@ -149,7 +128,7 @@
                     android:textSize="18dp"
                     android:layout_weight="1"
                     android:drawableRight="@drawable/ic_edit"
-                    android:text="Nie uzupełniony" />
+                    android:text="@string/not_filled" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -162,24 +141,49 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_light"
-                        android:textSize="18dp"
-                        android:text="Hasło" />
+                        android:text="@string/new_password" />
 
                 <Button
                     android:id="@+id/user_password"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/roboto_light"
-                    android:textSize="18dp"
                     android:layout_gravity="fill"
                     android:layout_weight="1"
-
                     android:drawableRight="@drawable/ic_edit"
-                    android:text="Zmień" />
+                    android:fontFamily="@font/roboto_light"
+
+                    android:text="@string/change"
+                    android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Settings_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/MyTextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Avatar użytkownika" />
+
+                    <Button
+                        android:id="@+id/user_avatar"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="fill"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_edit"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="@string/not_filled"
+                        android:textSize="18dp" />
                 </LinearLayout>
             </LinearLayout>
+
         </ScrollView>
 
     </android.support.constraint.ConstraintLayout>

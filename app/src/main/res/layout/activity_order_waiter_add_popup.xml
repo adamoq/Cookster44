@@ -11,7 +11,7 @@
         android:scaleType="center"
         android:fontFamily="@font/roboto_light"
         android:textSize="20dp"
-        android:text="Wybierz dania" />
+        android:text="@string/choose_dishes" />
 
     <ScrollView
         android:layout_width="match_parent"

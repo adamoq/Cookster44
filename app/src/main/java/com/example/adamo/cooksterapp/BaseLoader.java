@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -70,7 +71,7 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
         BufferedReader reader = null;
         JSONObject obj = null;
         try {
-            Log.d("XXXX", "ELO " + this.dir);
+            Log.d("XXXX", "ELO " + this.dir + method);
             client = (HttpURLConnection) new URL(getContext().getResources().getString(R.string.app_url) + this.dir).openConnection();
             client.setConnectTimeout(1000);
             client.setReadTimeout(2000);
@@ -115,6 +116,8 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
         } finally {
             client.disconnect();
         }
+
+
         return obj;
     }
 
@@ -147,9 +150,10 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
                 JSONObject jsonprod;
                 JSONObject jsontask = new JSONObject();
                 String taskId = "";
-
+                int levels = -1;
+                if (productArray.get(0).containsKey("table") || productArray.get(0).containsKey("provider"))
                 for (HashMap<String, String> product : productArray) {
-                    jsonprod = new JSONObject();
+
 
                     if (product.containsKey("provider")) {
                         for (Map.Entry<String, String> entry : product.entrySet())
@@ -160,14 +164,15 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
                             taskId = obj.getString("resource_uri");
                             this.dir = "api/cookorders/";
                         }
-                    } else if (product.containsKey("price_default")) {
+                    } else if (product.containsKey("table")) {
+                        this.dir = "api/waitertasks/";
                         for (Map.Entry<String, String> entry : product.entrySet())
                             jsontask.put(entry.getKey(), entry.getValue());
 
                         if (jsontask != null && jsontask.has("price_default")) {
                             obj = request(jsontask);
                             taskId = obj.getString("resource_uri");
-                            int levels = Integer.parseInt(jsontask.getString("levels"));
+                            levels = Integer.parseInt(jsontask.getString("levels"));
                             this.dir = "api/waiterorderdetails/";
                             for (int i = 0; i < levels; i++) {
                                 jsonprod = new JSONObject();
@@ -179,8 +184,14 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
                             this.dir = "api/waiterorders/";
                         }
                     } else {
-                        for (Map.Entry<String, String> entry : product.entrySet())
+                        jsonprod = new JSONObject();
+                        for (Map.Entry<String, String> entry : product.entrySet()) {
                             jsonprod.put(entry.getKey(), entry.getValue());
+                            Log.d("xx", "xxentry.getKey()" + entry.getKey());
+                            Log.d("xx", "xxentry.getValue()" + entry.getValue());
+                        }
+
+
                         if (jsonprod.has("level"))
                             jsonprod.put("task", tasks.get(Integer.parseInt(jsonprod.get("level").toString())));
                         else jsonprod.put("task", taskId);
@@ -190,8 +201,7 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
                 }
                 Log.d("xdd", jsontask.toString());
 
-
-                if (ids.size() == productArray.size() + 1) {
+                if ((ids.size() == productArray.size() + 1) || (levels > 0 && ids.size() == productArray.size() - 1)) {
                     Log.d("XX", "XXXXXX" + ids.toString());
                     obj = new JSONObject();//
                     obj.put("ok", "ok");
@@ -217,13 +227,21 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
 
                 obj = new JSONObject(response.toString());
                 if (reader != null) reader.close();
+            } catch (UnknownHostException e) {
+                obj = new JSONObject();
+                try {
+                    obj.put("error", "offline");
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+                client.disconnect();
+
             } catch (Exception e) {
                 client.disconnect();
                 e.printStackTrace();
                 obj = new JSONObject();
                 try {
-                    obj.put("error", e.getMessage());
-
+                    obj.put("error", e.getClass() + " : " + e.getMessage());
                     return obj;
                 } catch (JSONException e1) {
                     e1.printStackTrace();
@@ -241,6 +259,7 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
                 client.setConnectTimeout(4000);
                 client.setReadTimeout(4000);
                 client.setRequestMethod(method);
+                Log.d("XDD", method);
                 client.setRequestProperty("Content-Type", "application/json; charset=utf8");
                 client.setDoOutput(true);
                 client.setDoInput(true);
@@ -260,9 +279,6 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
                 }
 
 
-
-
-
                 os.close();
                 Log.d("xddd", "" + client.getResponseCode());
                 Log.d("xddd", "" + client.getResponseMessage());
@@ -273,7 +289,12 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
                     String line = "";
                     while ((line = reader.readLine()) != null) response.append(line);
                     if (response != null && !response.toString().equals(""))
-                        obj = new JSONObject(response.toString());
+                        try {
+                            JSONArray arr = new JSONArray(response.toString());
+                            obj = arr.getJSONObject(0);
+                        } catch (Exception e) {
+                            obj = new JSONObject(response.toString());
+                        }
                     else {
                         obj = new JSONObject();
                         obj.put("code", client.getResponseCode());
@@ -281,12 +302,21 @@ public class BaseLoader extends AsyncTaskLoader<JSONObject> {
                     if (reader != null) reader.close();
                 } else throw new Exception();
 
+            } catch (UnknownHostException e) {
+                obj = new JSONObject();
+                try {
+                    obj.put("error", "offline");
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+                client.disconnect();
+
             } catch (Exception e) {
+                client.disconnect();
                 e.printStackTrace();
                 obj = new JSONObject();
                 try {
-                    obj.put("error", e.getMessage());
-                    client.disconnect();
+                    obj.put("error", e.getClass() + " : " + e.getMessage());
                     return obj;
                 } catch (JSONException e1) {
                     e1.printStackTrace();

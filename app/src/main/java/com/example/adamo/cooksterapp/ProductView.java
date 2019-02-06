@@ -33,7 +33,6 @@ public class ProductView extends LinearLayout {
         tv.setText(title);
         LayoutParams params = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 4);
         tv.setLayoutParams(params);
-        tv.setTextSize(18);
         final Typeface regular = ResourcesCompat.getFont(context, R.font.roboto_light);
         tv.setTypeface(regular);
         tv.setPadding(30, 0, 0, 0);

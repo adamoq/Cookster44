@@ -19,8 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:fontFamily="@font/roboto_light"
-            android:text="Serwis "
+            android:text="@string/level"
             android:textSize="16dp" />
 
         <TextView
@@ -28,8 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/roboto_light"
-            android:text="edytuj|Usuń"
+            android:text="@string/edit_remove"
             android:textAllCaps="true"
             android:textSize="14dp" />
 

@@ -1,11 +1,73 @@
 <resources>
     <string name="app_name">Cookster</string>
-    <string name="app_url">http://adamferchichi.pythonanywhere.com/</string>
+    <string name="app_url" translatable="false">http://adamferchichi.pythonanywhere.com/</string>
 
-    <string name="title_activity_products">ProductsActivity</string>
+    <string name="title_activity_products" translatable="false">ProductsActivity</string>
+    <string name="order_details">Dane zamówienia</string>
+    <string name="products">Produkty</string>
+    <string name="priority">Priorytet</string>
+    <string name="status">Status</string>
+    <string name="changestatus">Zmień status zamówienia</string>
+    <string name="comment">Komentarz</string>
+    <string name="dishes">Dania</string>
+    <string name="price">Wartość zamówienia</string>
+    <string name="planned">Zaplanowane</string>
+    <string name="level">Poziom</string>
+    <string name="cookorders">Zamówienia od kelnerów</string>
+    <string name="waiterorders">Zamówienia dla dostawców</string>
+    <string name="currency">Waluta</string>
+    <string name="table">Stół</string>
+    <string name="error_title">Błąd podczas ładowania widoku</string>
+    <string name="error_description">Nie udało się załadować widoku</string>
+    <string name="provider">Zaopatrzeniowiec</string>
     <string-array name="orders_av">
         <item>Zlecone</item>
         <item>W realizacji</item>
         <item>Dostarczone</item>
     </string-array>
+    <string name="try_again">Spróbuj ponownie</string>
+    <string name="edit_phonenumber">Edytuj numer telefonu</string>
+    <string name="edit_password">Edytuj hasło</string>
+    <string name="old_password">Stare hasło</string>
+    <string name="new_password">Nowe hasło</string>
+    <string name="service_url">Adres publiczny serwisu</string>
+    <string name="user_id">ID użytkownika</string>
+    <string name="user_details">Dane użytkownika</string>
+    <string name="system_version">Wersja systemu</string>
+    <string name="phonenumber">Numer telefonu</string>
+    <string name="not_filled">Nie uzupełniony</string>
+    <string name="password">Hasło</string>
+    <string name="change">Zmień</string>
+    <string name="all_orders">Wszystkie zamówienia</string>
+    <string name="my_orders">Moje zamówienia</string>
+    <string name="edit_remove">Edytuj|Usuń</string>
+    <string name="choose_dishes">Wybierz dania</string>
+    <string name="log_as">"Zaloguj się jako "</string>
+    <string name="login">Login</string>
+    <string name="another_account">Zmień użytkownika</string>
+    <string name="incorrect_data">Podane dane są nieprawidłowe</string>
+    <string name="add_products">Dodaj produkty</string>
+    <string name="comment_hint">Komentarz</string>
+    <string name="add_order">Dodaj zamówienie</string>
+    <string name="choose_products">Wybierz produkty</string>
+    <string name="reservations">Rezerwacje</string>
+    <string name="log_out">Wyloguj się</string>
+    <string name="exit">Zamknij aplikację</string>
+    <string name="setting">Ustawienia</string>
+    <string name="users">Użytkownicy</string>
+    <string name="administration">Administracja</string>
+    <string name="data_sucessfull">Pomyślnie zaktualizowano hasło w bazie.</string>
+    <string name="order_successful">Pomyślnie zaktualizowano zamówienie w bazie.</string>
+    <string name="reservation">Rezerwacja</string>
+    <string name="supply">Dostawa</string>
+    <string name="takeaway">Na wynos</string>
+    <string name="reservation_date">Data rezerwacji</string>
+    <string name="supplier">Dostawca</string>
+    <string name="language">Język</string>
+    <string name="send_order">Wyślij zamówienie</string>
+    <string name="cook">Kucharz</string>
+    <string name="please_wait">Proszę czekać</string>
+    <string name="loading_desc">Pobieram dane z serwera</string>
+    <string name="availbility">Dostępność</string>
+    <string name="waiter">Kelner</string>
 </resources>

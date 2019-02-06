@@ -1,55 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.adamo.cookster">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
-        android:allowBackup="true"
         android:name="com.example.adamo.cooksterapp.App"
+        android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="CookSter"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:label"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.adamo.cooksterapp.LoginActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+
             android:label="CookSter"
-            android:theme="@style/AppTheme.NoActionBar"           >
+
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.adamo.cooksterapp.ProductsActivity"
-            android:theme="@style/AppFullScreenTheme" />
-        <activity
-            android:name="com.example.adamo.cooksterapp.MainActivity"
-            android:theme="@style/AppFullScreenTheme" />
-        <activity
-            android:name="com.example.adamo.cooksterapp.EmployeesActivity"
-            android:theme="@style/AppFullScreenTheme" />
-        <activity
-            android:name="com.example.adamo.cooksterapp.SettingsActivity"
-            android:theme="@style/AppFullScreenTheme" />
-        <activity
-            android:name="com.example.adamo.cooksterapp.DishActivity"
-            android:theme="@style/AppFullScreenTheme" />
-        <activity
-            android:name="com.example.adamo.cooksterapp.OrdersCookActivity"
-            android:theme="@style/AppFullScreenTheme" />
-        <activity
-            android:name="com.example.adamo.cooksterapp.OrderCookAddActivity"
-            android:theme="@style/AppFullScreenTheme" />
-        <activity
-            android:name="com.example.adamo.cooksterapp.OrderWaiterAddActivity"
-            android:theme="@style/AppFullScreenTheme" />
+        <activity android:name="com.example.adamo.cooksterapp.ProductsActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.OrdersCookChoice" />
+        <activity android:name="com.example.adamo.cooksterapp.EmployeesActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.SettingsActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.DishActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.ReservationsActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.OrdersCookActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.OrderCookAddActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.OrderWaiterAddActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.OrdersWaiterActivity" />
+        <activity android:name="com.example.adamo.cooksterapp.ErrorActivity" />
+
+        <service
+            android:name="com.example.adamo.cooksterapp.BackgroundService"
+            android:exported="false" />
     </application>
 
 </manifest>

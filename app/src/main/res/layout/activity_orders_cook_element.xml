@@ -19,16 +19,12 @@
             android:id="@+id/order_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
             android:layout_weight="1" />
 
         <TextView
             android:id="@+id/order_products"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:textSize="18dp"
             android:layout_weight="6" />
 
 
@@ -45,16 +41,12 @@
         android:id="@+id/order_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_light"
-        android:textSize="18dp"
         android:layout_weight="1" />
 
     <TextView
         android:id="@+id/order_provider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_light"
-        android:textSize="18dp"
         android:layout_weight="1" />
 
 

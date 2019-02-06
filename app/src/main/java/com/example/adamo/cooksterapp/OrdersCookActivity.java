@@ -1,7 +1,6 @@
 package com.example.adamo.cooksterapp;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -48,7 +48,7 @@ public class OrdersCookActivity extends BaseActivity {
                 messageBox(OrdersCookActivity.this, "errorMadafaka!", e.getMessage());
                 e.printStackTrace();
             }
-            progress.dismiss();
+            progress.hide();
         }
 
         @Override
@@ -56,30 +56,13 @@ public class OrdersCookActivity extends BaseActivity {
 
         }
     };
-
-    protected void renderData(JSONObject data) throws JSONException {
-        super.renderData(data);
-        JSONArray arr = data.getJSONArray("objects");
-        LinearLayout linearLayout = findViewById(R.id.lidear_orders_cook);
-        linearLayout.removeAllViews();
-        final SharedPreferences settings = getSharedPreferences("login", 0);
-        int id = Integer.parseInt(settings.getString("id", null));
-        for (int i = 0; i < arr.length(); i++) {
-            OrderCookModel order;
-            if (arr.getJSONObject(i).getJSONObject("provider").getInt("id") == id)
-                order = new OrderCookModel(arr.getJSONObject(i).getInt("id"), "Zlecono dla Ciebie", arr.getJSONObject(i).getString("products"), arr.getJSONObject(i).getString("priority"), arr.getJSONObject(i).getString("created_at"), arr.getJSONObject(i).getString("state"), arr.getJSONObject(i).getString("comment"));
-            else
-                order = new OrderCookModel(arr.getJSONObject(i).getInt("id"), arr.getJSONObject(i).getJSONObject("provider").getString("name") + " " + arr.getJSONObject(i).getJSONObject("provider").getString("surname"), arr.getJSONObject(i).getString("products"), arr.getJSONObject(i).getString("priority"), arr.getJSONObject(i).getString("created_at"), arr.getJSONObject(i).getString("state"), arr.getJSONObject(i).getString("comment"));
-            linearLayout.addView(new OrderCookView(this, order, getSupportLoaderManager()));
-        }
-
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setContentView(R.layout.activity_orders_cook);
-        final SharedPreferences settings = getSharedPreferences("login", 0);
-        super.onCreate(savedInstanceState, "api/cooktasks/?cook=" + settings.getString("id", null));
+        setContentView(R.layout.activity_orders_container);
+
+        super.onCreate(savedInstanceState, "api/cooktasks/?cook=" + getSharedPreferences("login", 0).getString("id", null));
+
+
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.orders_av, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -98,13 +81,55 @@ public class OrdersCookActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) provider = null;
-                else provider = settings.getString("id", null);
+                else provider = getSharedPreferences("login", 0).getString("id", null);
                 reloadOrders();
             }
         });
     }
 
-    private void reloadOrders() {
+    protected void renderData(JSONObject data) throws JSONException {
+        super.renderData(data, R.id.order_id);
+        JSONArray arr = data.getJSONArray("objects");
+        LinearLayout linearLayout = findViewById(R.id.lidear_orders_cook);
+        linearLayout.removeAllViews();
+        int id = Integer.parseInt(getSharedPreferences("login", 0).getString("id", null));
+        for (int i = 0; i < arr.length(); i++) {
+            OrderCookModel order;
+            ArrayList<HashMap<String, String>> productList = makeOrders(arr.getJSONObject(i).getJSONArray("orders"));
+            if (arr.getJSONObject(i).getJSONObject("provider").getInt("id") == id)
+                order = new OrderCookModel(arr.getJSONObject(i).getInt("id"), "Zlecono dla Ciebie", productList, arr.getJSONObject(i).getString("priority"), arr.getJSONObject(i).getString("created_at"), arr.getJSONObject(i).getString("state"), arr.getJSONObject(i).getString("comment"));
+            else
+                order = new OrderCookModel(arr.getJSONObject(i).getInt("id"), arr.getJSONObject(i).getJSONObject("provider").getString("name") + " " + arr.getJSONObject(i).getJSONObject("provider").getString("surname"), productList, arr.getJSONObject(i).getString("priority"), arr.getJSONObject(i).getString("created_at"), arr.getJSONObject(i).getString("state"), arr.getJSONObject(i).getString("comment"));
+            linearLayout.addView(new OrderCookView(this, order, getSupportLoaderManager()));
+        }
+        progress.hide();
+    }
+
+    private ArrayList<HashMap<String, String>> makeOrders(JSONArray dishes) {
+        JSONObject dish;
+        ArrayList<HashMap<String, String>> orders = new ArrayList<>();
+        HashMap<String, String> order = null;
+        String result = "";
+        for (int i = 0; i < dishes.length(); i++) {
+            try {
+                dish = dishes.getJSONObject(i);
+                order = new HashMap<>();
+                order.put("count", dish.getString("count"));
+                order.put("product__unit", dish.getString("product__unit"));
+                order.put("product__name", dish.getString("product__name"));
+                order.put("id", dish.getString("id"));
+
+                orders.add(order);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return orders;
+    }
+
+
+    protected void reloadOrders() {
         LoaderManager loaderManager = getSupportLoaderManager();
         if (loaderManager.getLoader(3) != null)
             loaderManager.restartLoader(3, null, OrderCallbacks).forceLoad();

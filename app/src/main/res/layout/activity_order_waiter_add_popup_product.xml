@@ -8,26 +8,38 @@
     android:orientation="horizontal"
     android:weightSum="9">
 
+    <Button
+        android:id="@+id/rem_progress"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textAlignment="center"
+        android:textSize="28dp" />
     <EditText
         android:id="@+id/order_product_count"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:fontFamily="@font/roboto_light"
         android:inputType="number"
         android:text="0"
-        android:textAlignment="viewEnd"
-        android:textSize="18dp" />
+        android:textAlignment="viewEnd" />
 
+    <Button
+        android:id="@+id/add_progress"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textAlignment="center"
+        android:textSize="28dp" />
 
     <TextView
         android:id="@+id/order_product_name"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="8"
-        android:fontFamily="@font/roboto_light"
-        android:gravity="center_vertical|start"
-        android:textSize="18dp" />
+        android:gravity="center_vertical|start" />
 </LinearLayout>
 
 

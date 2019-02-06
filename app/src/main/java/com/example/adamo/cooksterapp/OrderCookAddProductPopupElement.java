@@ -26,6 +26,7 @@ public class OrderCookAddProductPopupElement extends LinearLayout {
         this.url = url;
         this.productId = id;
         ((TextView) findViewById(R.id.order_product_currency)).setText(productUnit);
+
     }
 
     public OrderCookAddProductPopupElement(Context context, String productName, String productUnit) {
@@ -44,6 +45,7 @@ public class OrderCookAddProductPopupElement extends LinearLayout {
         editText = findViewById(R.id.order_product_count);
         this.productName = productName;
         this.url = "/api/resdishes/" + id + "/";
+
     }
 
     public Integer getProductId() {
@@ -70,7 +72,7 @@ public class OrderCookAddProductPopupElement extends LinearLayout {
         return url;
     }
 
-    public void progressCount() {
-        editText.setText("" + (Integer.parseInt(editText.getText().toString()) + 1));
+    public void progressCount(int x) {
+        editText.setText("" + x);
     }
 }

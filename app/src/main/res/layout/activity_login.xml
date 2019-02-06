@@ -36,7 +36,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="25dp"
-            android:fontFamily="@font/roboto_light"
             android:text="Restauracja testowa"
             android:textAlignment="center"
             android:textSize="18dp" />
@@ -56,7 +55,7 @@
                 android:elegantTextHeight="false"
                 android:fontFamily="@font/roboto_light"
                 android:freezesText="false"
-                android:text="Zaloguj się jako "
+                android:text="@string/log_as"
                 android:textAllCaps="false"
                 android:textSize="18dp" />
 
@@ -71,7 +70,7 @@
                 android:elegantTextHeight="false"
                 android:fontFamily="@font/roboto_light"
                 android:freezesText="false"
-                android:text="Zaloguj się używając innego konta"
+                android:text="@string/another_account"
                 android:textAllCaps="false"
                 android:textSize="18dp" />
         </LinearLayout>
@@ -97,7 +96,7 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text="Login:"
+                    android:text="@string/login"
                     android:textColor="#CCC"
                     android:textSize="18sp" />
 
@@ -106,7 +105,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/roboto_light"
                     android:layout_weight="1"
                     android:inputType="textPersonName"
                     android:minWidth="0dp"
@@ -123,18 +121,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text="Hasło: "
-                    android:textColor="#CCC"
-                    android:textSize="18sp" />
+                    android:text="@string/password"
+                    android:textColor="#CCC" />
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/roboto_light"
                     android:layout_weight="1"
                     android:inputType="textPassword"
                     android:textColor="#FFF" />
@@ -146,10 +141,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_light"
                 android:height="30dp"
                 android:drawableLeft="@drawable/ic_warning_orange"
-                android:text="Podane dane są nieprawidłowe"
+                android:text="@string/incorrect_data"
                 android:textColor="@color/colorAccent"
                 android:textSize="10sp"
                 android:visibility="invisible" />
@@ -158,13 +152,11 @@
                 android:id="@+id/submit_button"
                 style="@android:style/Widget.Button"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/roboto_light"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15sp"
                 android:background="@android:drawable/screen_background_dark_transparent"
-                android:text="Zaloguj się"
-                android:textColor="#FFF"
-                android:textSize="18sp" />
+                android:text="@string/log_as"
+                android:textColor="#FFF" />
         </LinearLayout>
 
     </LinearLayout>
